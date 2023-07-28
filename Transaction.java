@@ -70,10 +70,46 @@ public class Transaction {
          
     }
     public void specialReceipt (ArrayList <Item> ItemList, String[] CategoryList){
-        int i;
-        while (ItemList.get(i).getCurrentPurchases() > 0 && ItemList.get(i).getCategory() == CategoryList[0]){
-            System.out.print (ItemList.get(i).getName());
+        int i, nSinker = 0, totalValue = 0;
+        while (ItemList.get(i).getCurrentPurchases() == 0 && ItemList.get(i).getCategory() != CategoryList[0]){
+            i++;
         }
+        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+        System.out.print (ItemList.get(i).getName() + "Milktea with"); //Flavoring
+        
+        
+        for (i = 0; ItemList.get(i).getCurrentPurchases() > 0 && ItemList.get(i).getCategory() == CategoryList[1]; i++){
+           nSinker++;
+        }
+
+        for (i = 0; ItemList.get(i).getCurrentPurchases() > 0 && ItemList.get(i).getCategory() == CategoryList[1]; i++){ //sinkers
+           if (nSinker == 1){
+               totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+               System.out.println (ItemList.get(i).getName+".");
+           }
+            else if (nSinker > 1){
+               totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+               System.out.println (ItemList.get(i).getName+", "); 
+               nSinker--;
+            }
+        }
+        i = 0;
+        while (ItemList.get(i).getCurrentPurchases() == 0 && ItemList.get(i).getCategory() != CategoryList[2]){
+            i++;
+        }
+        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+        System.out.println (" - " +ItemList.get(i).getName); // milk
+        i = 0;
+        
+        while (ItemList.get(i).getCurrentPurchases() == 0 && ItemList.get(i).getCategory() != CategoryList[3]){
+            i++;
+        }
+        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+        System.out.println (" - " +ItemList.get(i).getName + "base"); // tea base
+        
+        i = 0;
+        System.out.println ("TOTAL: " +totalValue);
+        
         
     }
     
