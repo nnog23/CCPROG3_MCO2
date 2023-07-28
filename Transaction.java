@@ -69,7 +69,13 @@ public class Transaction {
         }
          
     }
-
+    public void specialReceipt (ArrayList <Item> ItemList, String[] CategoryList){
+        int i;
+        while (ItemList.get(i).getCurrentPurchases() > 0 && ItemList.get(i).getCategory() == CategoryList[0]){
+        }
+        
+    }
+    
 
 
 
