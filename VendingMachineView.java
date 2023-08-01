@@ -16,7 +16,7 @@ public class VendingMachineView{
     private JFrame mainFrame;
 	private JLabel nameLbl, Items, ilName, ilPrice, ilQuantity, ilCalories, ilCategory;
 	private JTextField iName, iPrice, iQuantity, iCalories, iCategory;
-	private JButton RegVend, SpecVend, itemSubmit;
+	private JButton RegVend, SpecVend, RegSubmit, SpecSubmit, Done;
 	//private JTextArea employeeListTextArea;
 
     public VendingMachineView(){
@@ -90,27 +90,60 @@ public class VendingMachineView{
         this.iCategory.setVisible(false);
         this.iCategory.setEnabled(false);
 
-        itemSubmit = new JButton("Submit");
-        itemSubmit.setBounds(10, 10, 60, 60);
-        this.itemSubmit.setEnabled(false);
-        this.itemSubmit.setVisible(false);
-        this.mainFrame.add(itemSubmit);
+        RegSubmit = new JButton("Submit");
+        SpecSubmit = new JButton("Submit");
+        Done = new JButton("Done");
+
+        RegSubmit.setBounds(10, 10, 60, 60);
+        SpecSubmit.setBounds(10, 10, 60, 60);
+        Done.setBounds(10, 10, 60, 60);
+        this.RegSubmit.setEnabled(false);
+        this.RegSubmit.setVisible(false);
+        this.SpecSubmit.setEnabled(false);
+        this.SpecSubmit.setVisible(false);
+        this.Done.setEnabled(false);
+        this.Done.setVisible(false);
+
+        this.mainFrame.add(RegSubmit);
+        this.mainFrame.add(SpecSubmit);
+        this.mainFrame.add(Done);
         //create "Add Item" button
         // VENDING MENUS
     
         this.mainFrame.pack();
         
     }
-    public void setAddBtnListener(ActionListener actionListener) {
+
+    public void setRegVendBtnListener(ActionListener actionListener) {
+
 		this.RegVend.addActionListener(actionListener);
+        
+        
+	}
+
+    public void setSpecVendBtnListener(ActionListener actionListener) {
+
+		
         this.SpecVend.addActionListener(actionListener);
         
 	}
-    public void itemSubmitListener(ActionListener actionListener) {
-		this.itemSubmit.addActionListener(actionListener);//change itemSubmit to AddItem button
+
+    public void setRegSubmitListener(ActionListener actionListener) {
+
+		this.RegSubmit.addActionListener(actionListener);
         
         
 	}
+
+
+    public void setSpecSubmitListener(ActionListener actionListener) {
+
+		this.SpecSubmit.addActionListener(actionListener);
+        
+        
+	}
+
+    
     //create actionlistener for submitting items; only available if >=8 items
 
     public void FirstMenuStatus (boolean status){
@@ -121,7 +154,27 @@ public class VendingMachineView{
         this.nameLbl.setVisible(status);
     }
 
-    public void ItemCreate(boolean status){
+    public void RegularItemCreate(boolean status){
+
+        this.Items.setVisible(status);
+        this.ilName.setVisible(status);
+        this.ilPrice.setVisible(status);
+        this.ilQuantity.setVisible(status);
+        this.ilCalories.setVisible(status);
+        this.iName.setVisible(status);
+        this.iName.setEnabled(status);
+        this.iPrice.setVisible(status);
+        this.iPrice.setEnabled(status);
+        this.iQuantity.setVisible(status);
+        this.iQuantity.setEnabled(status);
+        this.iCalories.setVisible(status);
+        this.iCalories.setEnabled(status);
+        this.RegSubmit.setEnabled(status);
+        this.RegSubmit.setVisible(status);
+
+    }
+
+    public void SpecialItemCreate(boolean status){
         this.Items.setVisible(status);
         this.ilName.setVisible(status);
         this.ilPrice.setVisible(status);
@@ -138,9 +191,17 @@ public class VendingMachineView{
         this.iCalories.setEnabled(status);
         this.iCategory.setVisible(status);
         this.iCategory.setEnabled(status);
-        this.itemSubmit.setEnabled(status);
-        this.itemSubmit.setVisible(status);
+        this.SpecSubmit.setEnabled(status);
+        this.SpecSubmit.setVisible(status);
     }
+
+        public void Done(boolean status){
+
+        this.Done.setEnabled(status);
+        this.Done.setVisible(status);
+
+    }
+
     public String getLabel(){
         return this.nameLbl;
     }
@@ -179,8 +240,9 @@ public class VendingMachineView{
 public static void main (String[] args) {
     
     VendingMachineView newMachine = new VendingMachineView();
+    VendingMachineModel newModel = new VendingMachineModel();
 
-    VendingMachineController vController = new VendingMachineController(newMachine);
+    VendingMachineController vController = new VendingMachineController(newMachine, newModel);
 
 }
 
