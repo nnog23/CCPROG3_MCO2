@@ -9,108 +9,39 @@ import java.util.ArrayList;
     */
 
 public class Transaction {
-
-    private ArrayList <Item> ItemList = new ArrayList <Item>();
-
-
-    public Transaction (ArrayList <Item> ItemList){
-        this.ItemList = ItemList;
+    
+    public Transaction (){
+        
     }
+
     /**
      * Displays all the items bought, the quantity in which they were purchased, and the total earnings
      * @param ItemList is the arraylist of Items
      */
-    public void TransactionList(ArrayList <Item> ItemList){
+    public String TransactionList(ArrayList <ArrayList<Item>> ItemList, ArrayList<Integer> totalPurchases){
         int i, totalValue = 0;
         int nItem = ItemList.size();
         int nPurchase = 0;
         System.out.println ("List of Transactions");
-        
+        String totalDisplay = "";
         for (i = 0; i < nItem; i++){
 
-            if (ItemList.get(i).getTotalPurchases() > 0){
-                System.out.println(ItemList.get(i).getName() + ": " + ItemList.get(i).getTotalPurchases());
-                totalValue += ItemList.get(i).getTotalPurchases() * ItemList.get(i).getPrice();
-                nPurchase ++;
-            }
-            
-        }
-
-        if (nPurchase > 0){
-            System.out.println ("Total : P" + totalValue);
-        }
-        else {
-            System.out.println("There have been no purchases yet.");
-        }
-    }
-    /**
-     * Displays the items the customer purchased, the quantity purchased, and their added totals
-     * @param ItemList is the arraylist of Items
-     */
-     public void Receipt(ArrayList <Item> ItemList){
-        int i, totalSpent = 0, nPurchase = 0;
-        int nItem = ItemList.size();
-    
-        System.out.println ("RECEIPT:");
-        for (i = 0; i < nItem; i++){
-            if (ItemList.get(i).getCurrentPurchases() > 0){
-                System.out.println(ItemList.get(i).getName() + ": " + ItemList.get(i).getCurrentPurchases());
-                totalSpent += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
+            if (totalPurchases.get(i) > 0){
+                totalDisplay += ItemList.get(i).get(0).getName() + ": " + totalPurchases.get(i) + "\n";
+                totalValue += totalPurchases.get(i) * ItemList.get(i).get(0).getPrice();
                 nPurchase++;
-                ItemList.get(i).setCurrentPurchases(0);
+                System.out.println (totalDisplay);
             }
             
         }
+
         if (nPurchase > 0){
-            System.out.println ("Total : P" + totalSpent);
+            totalDisplay += "\nTotal: P" +totalValue;  
+            return totalDisplay;
         }
         else {
-            System.out.println("There have been no purchases yet.");
+            return "There have been no purchases yet";
         }
-         
-    }
-    public void specialReceipt (ArrayList <Item> ItemList, String[] CategoryList){
-        int i = 0, nSinker = 0, totalValue = 0;
-        while (ItemList.get(i).getCurrentPurchases() == 0 || ItemList.get(i).getCategory() != CategoryList[0]){
-            i++;
-        }
-        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
-        System.out.print (ItemList.get(i).getName() + "Milktea with"); //Flavoring
-        
-        
-        for (i = 0; ItemList.get(i).getCurrentPurchases() > 0 || ItemList.get(i).getCategory() == CategoryList[1]; i++){
-           nSinker++;
-        }
-
-        for (i = 0; ItemList.get(i).getCurrentPurchases() > 0 || ItemList.get(i).getCategory() == CategoryList[1]; i++){ //sinkers
-           if (nSinker == 1){
-               totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
-               System.out.println (ItemList.get(i).getName+".");
-           }
-            else if (nSinker > 1){
-               totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
-               System.out.println (ItemList.get(i).getName+", "); 
-               nSinker--;
-            }
-        }
-        i = 0;
-        while (ItemList.get(i).getCurrentPurchases() == 0 || ItemList.get(i).getCategory() != CategoryList[2]){
-            i++;
-        }
-        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
-        System.out.println (" - " +ItemList.get(i).getName); // milk
-        i = 0;
-        
-        while (ItemList.get(i).getCurrentPurchases() == 0 || ItemList.get(i).getCategory() != CategoryList[3]){
-            i++;
-        }
-        totalValue += ItemList.get(i).getCurrentPurchases() * ItemList.get(i).getPrice();
-        System.out.println (" - " +ItemList.get(i).getName + "base"); // tea base
-        
-        i = 0;
-        System.out.println ("TOTAL: " +totalValue);
-        
-        
     }
     
 
