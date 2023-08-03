@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * This class contains the supporting methods that VendingMachineController uses
  */
-public class VendingMachineModel{
+public class VendingMachineModel extends RegularVendingMachine{
 
 // Regular Vending Machine Object
 
@@ -14,21 +14,13 @@ private RegularVendingMachine vendingMachine = null;
 
 private ArrayList <ArrayList<Item>> ItemList = new ArrayList <ArrayList<Item>>();
 private Transaction TransactionList = new Transaction();
-private int[] denomList = {1000,500,200,100,50,20,10,5,1}; // standard denominations
-private int[] paymentList = {0,0,0,0,0,0,0,0,0}; // payment from customer
-private int[] ownerPaymentList = {0,0,0,0,0,0,0,0,0}; // total payment array
-private int[] changeList = {30,30,30,30,30,30,30,30,30}; // amount of change
-private ArrayList <Integer> currentPurchase = new ArrayList<>();
+
 private ArrayList <Integer> totalPurchase = new ArrayList<>();
 
 
 
 // Special Vending Machine Attributes
 
-private int nCategories = 4;  // Sinkers, Tea Base, Milk, Flavoring
-private String[] CategoryList = {"Sinker", "Tea Base", "Milk", "Flavoring"};
-private String[] ProcessList = {"Adding", "Brewing", "Pouring", "Mixing"};
-private String Customizable_Item = "Milk Tea";
 private ArrayList <Integer> ChosenItems = new ArrayList<>();
 
 /**
@@ -37,14 +29,10 @@ private ArrayList <Integer> ChosenItems = new ArrayList<>();
 public VendingMachineModel(){
 
 
-/**
- * returns the array of bill denominations the owner would recieve from the machine
- * @return ownerPaymentList denonomination array
- */
+
+
 }
-public int[] getOwnerPaymentList(){
-  return this.ownerPaymentList;
-}
+
 /**
  * gets and returns the itemlist
  * @return ItemList 2d array list of item
@@ -54,34 +42,7 @@ public ArrayList <ArrayList<Item>> getItemList(){
   return ItemList;
 
 }
-/**
- * gets and returns the changelist
- * @return array of change denom
- */
-public int[] getChangeList(){
 
-  return changeList;
-
-}
-/**
- * gets and returns the paymentlist
- * @return array of payment denom
- */
-public int[] getPaymentList(){
-
-  return paymentList;
-
-}
-/**
- * gets and returns the denomination list
- * @return array of denominations
- */
-public int[] getDenomList(){
-
-
-  return denomList;
-
-}
 /**
  * gets the arraylist of chosen items for customized product
  * @return arraylist of chosen items
@@ -101,6 +62,7 @@ public ArrayList <Integer> getChosenItems(){
  * @param item_calories is its calorie value
  * @return true
  */
+
 public boolean addRegItem(String item_name, int item_price, int item_quantity, float item_calories){
   
   ArrayList <Item> temp = new ArrayList<>();
@@ -111,7 +73,6 @@ public boolean addRegItem(String item_name, int item_price, int item_quantity, f
     temp.add(item);
    }
 
-  this.currentPurchase.add(0);
   this.totalPurchase.add(0);
   ItemList.add(temp);
     return true;
@@ -149,19 +110,13 @@ public void addSpecItem(String item_name, int item_price, int item_quantity, flo
   
   ItemList.add(temp);
 
-  this.currentPurchase.add(0);
+
   this.totalPurchase.add(0);
    
 
 }
 
-/**
- * gets the array of currentPurchase, which holds the number of items purchased in a session
- * @return int arraylist of current purchases
- */
-public ArrayList<Integer> getCurrentPurchases(){
-  return this.currentPurchase;
-}
+
 /**
  * gets the array of totalPurchase, which holds the number of items purchased overall
  * @return arraylist of total purchase
@@ -199,7 +154,7 @@ public RegularVendingMachine getVendingMachine(){
 /**
  * sets the instance of a vending machine to null 
  */
-public void setVendingMachineNull(){
+public void setVendingMachineNull(RegularVendingMachine vendingMachine){
 
   vendingMachine = null;
 
@@ -283,85 +238,10 @@ if(name.equals(ItemList.get(i).get(0).getName())){
 
 }
 
-/**
-     * returns the summation of an array
-     * @param value[] is the array to be summationed
-     * @return total value inside int array
-     */
 
-    public int totalAmount (int[] value){
+ 
 
-      int i, total = 0;
-  
-      for (i = 0; i < 9; i++){
-  
-        total = total + (value[i] * denomList[i]);
-  
-      }
-
-      return total;
-  
-    }
-    /**
-     * verifies if the vending machine has enough change for the transaction
-     * @param amount is the amount of money paid
-     * @return t/f if enough change
-     */
-
-
-    public boolean verifyChange (int amount){
-   
-   
-      int [] tempChange = new int[changeList.length];
-   
-      int tempAmount = amount;
-      int i;
-   
-      for(i = 0; i <= 8; i++){
-   
-   
-       tempChange[i] = changeList[i];
-   
-      }
-   
-      for (i = 0; i <=8; i++){
-      while (tempAmount >= denomList[i] && tempChange[i] > 0){
-         tempAmount -= denomList[i];
-         tempChange[i] --;
-         }
-      }
-       if (tempAmount == 0){
-         return true;
-       }
-       else 
-   
-         return false; 
-         
-     }
-
-     /**
-     * returns the payment the user has inputted if the transaction is cancelled
-     * @param paymentList[] is the array of the payment from the customer
-     * @return original amount inserted
-     */
-
-  public int cancelTransaction (int [] paymentList){
-
-    int nTotal = 0;
-    int i;
-
-    nTotal = totalAmount (paymentList);
-
-    for (i = 0; i < 9; i++){
-          
-      this.paymentList[i] = 0;
-
-    }
-
-    return nTotal;
-    
-  }
-
+ 
 
   
 /**
@@ -378,21 +258,22 @@ public void dispenseItem(int select){
   
   ItemList.get(select).remove(ItemList.size() - 1);
   
-  Integer value = this.currentPurchase.get(select);
+  
+ 
   Integer value2 = this.totalPurchase.get(select);
-  value = value + 1;
   value2 = value2 + 1;
   
-  this.currentPurchase.set(select, value);
+
   this.totalPurchase.set(select, value2);
 
-  System.out.println(currentPurchase.get(select));
+ 
 
   for (i = 0; i <= 8; i++){
       
       ownerPaymentList[i] = paymentList[i];
 
     }
+
   for (i = 0; i <= 8; i++){
       
       paymentList[i] = 0;
@@ -425,60 +306,9 @@ public void insertCash(int payment){
 }
 
 
-  /**
-     * returns the denomination array of change that the user will get after buying
-     * @param amount is the change amount
-     * @return an array of denom for change
-     */
 
-     public int[] produceChange (int amount){
-
-      int[] changeDenom = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-   
-      int i;
-     //amount = 20
-      for (i = 0; i < 9; i++){
-      // 20 >= 20 && num 20 > 0
-      while (amount >= denomList[i] && changeList[i] > 0){
-   
-         System.out.println("Amount: " + amount);
-         
-         amount -= denomList[i];
-   
-         changeList[i]--;
-         changeDenom[i]++;
 
    
-         }
-   
-         
-   
-      }
-   
-       return changeDenom;
-   
-   
-   }
-
-   
-/**
- * stores the paymentList array to the ownerPaymentList array
- * @param paymentList is an array of bills that the customer inserted in the vending machine.
- */
-
-public void storePayment(int[] paymentList){
-
-  int i;
-  
-  for(i = 0; i < 9; i++){
-  
-    ownerPaymentList[i] += paymentList[i];
-  
-    paymentList[i] = 0;
-  
-  }
-
-  }
   
   /**
    * gets the list of item names
@@ -525,8 +355,7 @@ public void storePayment(int[] paymentList){
     
     for(i = 0; i < ChosenItems.size(); i++){ // arraylist of chosen item integers
 
-          System.out.println("ChosenItems: " + ChosenItems);
-          System.out.println("ItemList: " + ItemList);
+
 
           if(ItemList.get(ChosenItems.get(i)).get(0).getCategory().equals("Sinker")){
 
@@ -563,11 +392,10 @@ public void storePayment(int[] paymentList){
 
           }
 
-          System.out.println(this.totalPurchase);
 
           ItemList.get(ChosenItems.get(i)).remove(ItemList.get(ChosenItems.get(i)).size() - 1);
 
-          // j = ItemList.size() - 1
+      
 
     }
 
@@ -618,26 +446,7 @@ public void storePayment(int[] paymentList){
   
   }
 
-/**
- * collects and totals the money stored in the vending machine and returns a whole value
- * @param ownerpaymentlist is the array of denominations
- * @return an array for total denom amount
- */
-  public int collectPayment(int [] ownerpaymentList){
-  
-    int i;
-  
-    int total_payment = totalAmount(ownerpaymentList);
-  
-    for (i = 0; i <= 8; i++){
-  
-      ownerpaymentList[i] = 0;
-  
-    }
-  
-    return total_payment;
-  
-  }
+
 
 
 
