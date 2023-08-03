@@ -11,12 +11,16 @@ import java.util.ArrayList;
 
 public class RegularVendingMachine{
 
+
 protected int[] denomList = {1000,500,200,100,50,20,10,5,1}; // standard denominations
 protected int[] paymentList = {0,0,0,0,0,0,0,0,0}; // payment from customer
 protected int[] ownerPaymentList = {0,0,0,0,0,0,0,0,0}; // total payment array
 protected int[] changeList = {10,10,10,10,10,10,10,10,10}; // amount of change
 
-
+/**
+ *  The class RegularVendingMachine instance is used to logic in the VendingModel and VendingController
+ * 
+ */
 public RegularVendingMachine(){
 
 
@@ -182,7 +186,7 @@ public RegularVendingMachine(){
 
 /**
  * collects and totals the money stored in the vending machine and returns a whole value
- * @param ownerpaymentlist is the array of denominations
+ * @param ownerpaymentList is the array of denominations
  * @return an array for total denom amount
  */
 public int collectPayment(int [] ownerpaymentList){
