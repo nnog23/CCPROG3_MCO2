@@ -32,7 +32,7 @@ public class VendingMachineView{
     // VENDING MENU
 
     private JComboBox<String> denominations, category;
-    private JLabel chooseItemLabel, moneyLabel, customizedPrice, customizedCalories;
+    private JLabel vendingMenuLabel, chooseItemLabel, moneyLabel, customizedPrice, customizedCalories;
     private JButton insertCash, selectItem, cancelTransaction, customizeProduct, printReceipt;
     private JButton confirmCash, confirmItem;
     private JTextField itemSelect, itemMaintenance;
@@ -40,12 +40,12 @@ public class VendingMachineView{
 
     // CUSTOMIZE PRODUCT
 
-    private JButton submitSinker, submitTeaBase, submitMilk, submitFlavoring, proceedTransaction, customconfirmcash, custominsertcash;
+    private JButton submitSinker, submitTeaBase, submitMilk, submitFlavoring, proceedTransaction, customconfirmcash, custominsertcash, addSinker;
 
     // MAINTENANCE MENU 
     
     private JComboBox<String> items; // unadded to UML
-
+    private JLabel maintenanceMenuLabel;
     private JButton displayItemList, displayChangeList, replenishItem, replenishChange, replenishChangeConfirm, replenishItemConfirm, setPriceConfirm, addNewItem, 
     setPrice, collectPayment, printSummary, endMaintenance, endItemDisplay, endChangeDisplay, endTransactionDisplay;
 
@@ -76,54 +76,66 @@ public class VendingMachineView{
     public VendingMachineView(){
         
         
-        this.mainFrame = new JFrame ("Vending Machine Factory");
+        mainFrame = new JFrame ("Vending Machine Factory");
         
-	//	this.mainFrame.setSize(375,500);
-        //this.mainFrame.setLayout(new BoxLayout(mainFrame, BoxLayout.Y_AXIS));
-        this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 //   mainFrame.setSize(375,500);
+
+       // mainFrame.setLayout(new BoxLayout(mainFrame, BoxLayout.Y_AXIS));
+
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
         JPanel buttonpanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
         
-       this.mainFrame.setLayout(new BorderLayout());
+        mainFrame.setLayout(new BorderLayout());
 
-       this.mainFrame.add(panel, BorderLayout.CENTER);
+        mainFrame.add(panel, BorderLayout.CENTER);
 
 
 
        // Set the mainFrame's size
 
-       this.mainFrame.setSize(500, 700);
+       mainFrame.setSize(500, 700);
        panel.setSize(700,800);
-       
-       
         
 
-       this.mainFrame.setLocationRelativeTo(null);
-
-   
-
-       this.mainFrame.setVisible(true);
+       mainFrame.setLocationRelativeTo(null);
+       mainFrame.setVisible(true);
        
        
        
 
         // FIRST MENU
         
-        this.nameLbl = new JLabel("Welcome to the Vending Machine Factory");
-        nameLbl.setPreferredSize(new Dimension(100,100));
+        nameLbl = new JLabel("Vending Machine Factory");
+        nameLbl.setPreferredSize(new Dimension(300,100));
         nameLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(this.nameLbl);
+
+        panel.add(nameLbl);
+        
+        customizedPrice = new JLabel ("Total price is: ");
+        customizedPrice.setVisible(false);
+        customizedPrice.setPreferredSize(new Dimension(100,100));
+        customizedPrice.setAlignmentX(Component.CENTER_ALIGNMENT);
+        customizedCalories = new JLabel("Customized Calories");
+        customizedCalories.setVisible(false);
+        customizedCalories.setPreferredSize(new Dimension(100,100));
+        customizedCalories.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        panel.add(customizedPrice);
+        panel.add(customizedCalories);
+
         panel.add(buttonpanel);
         
+
         RegVend = new JButton ("Create a Regular Vending Machine");
         SpecVend = new JButton ("Create a Special Vending Machine");
         TestVend = new JButton ("Test Vending Machine");
         
-  
 
-        //this.mainFrame.add(panel);
         buttonpanel.add(RegVend);
         buttonpanel.add(SpecVend);
         buttonpanel.add(TestVend);
@@ -132,12 +144,12 @@ public class VendingMachineView{
 
         // TEST MENU (VENDING AND MAINTENANCE)
 
-        this.VendMenu = new JLabel("Choose a mode: ");
+        VendMenu = new JLabel("Choose a mode: ");
         buttonpanel.add(VendMenu);
         VendMenu.setVisible(false);
 
-        this.VendFeatures = new JButton("Test Vending Features");
-        this.MaintFeatures = new JButton("Test Maintenance Features");
+        VendFeatures = new JButton("Test Vending Features");
+        MaintFeatures = new JButton("Test Maintenance Features");
 
         VendFeatures.setBounds(10, 10, 75, 75);
         MaintFeatures.setBounds(10, 10, 75, 75);
@@ -145,47 +157,48 @@ public class VendingMachineView{
         buttonpanel.add(VendFeatures);
         buttonpanel.add(MaintFeatures);
         
-        this.VendFeatures.setVisible(false);
-        this.MaintFeatures.setVisible(false);
-        this.VendFeatures.setEnabled(false);
-        this.MaintFeatures.setEnabled(false);
+        VendFeatures.setVisible(false);
+        MaintFeatures.setVisible(false);
+        VendFeatures.setEnabled(false);
+        MaintFeatures.setEnabled(false);
         
         //CREATE ITEMS PART
 
-        this.Items = new JLabel("Create Items");
-        this.ilName = new JLabel("Name: ");
-        this.ilPrice = new JLabel("Price: ");
-        this.ilQuantity = new JLabel("Quantity: ");
-        this.ilCalories = new JLabel("Calories: ");
-        this.ilCategory = new JLabel("Category: ");
+        Items = new JLabel("Create at least 8 items for your vending machine");
+        ilName = new JLabel("Name: ");
+        ilPrice = new JLabel("Price: ");
+        ilQuantity = new JLabel("Quantity: ");
+        ilCalories = new JLabel("Calories: ");
+        ilCategory = new JLabel("Category: ");
         
+
 
         panel.add(Items);
         panel.add(ilName);
         
-        this.Items.setVisible(false);
-        this.ilName.setVisible(false);
-        this.ilPrice.setVisible(false);
-        this.ilQuantity.setVisible(false);
-        this.ilCalories.setVisible(false);
-        this.ilCategory.setVisible(false);
+        Items.setVisible(false);
+        ilName.setVisible(false);
+        ilPrice.setVisible(false);
+        ilQuantity.setVisible(false);
+        ilCalories.setVisible(false);
+        ilCategory.setVisible(false);
         
 
-        this.iName = new JTextField();
-		this.iName.setColumns(10);
-        this.iPrice = new JTextField();
-		this.iPrice.setColumns(10);
-        this.iQuantity = new JTextField();
-		this.iQuantity.setColumns(10);
-        this.iCalories = new JTextField();
-		this.iCalories.setColumns(10);
-        this.iCategory = new JTextField();
-		this.iCategory.setColumns(10);
+        iName = new JTextField();
+		iName.setColumns(10);
+        iPrice = new JTextField();
+		iPrice.setColumns(10);
+        iQuantity = new JTextField();
+		iQuantity.setColumns(10);
+        iCalories = new JTextField();
+		iCalories.setColumns(10);
+        iCategory = new JTextField();
+		iCategory.setColumns(10);
   
         String[] categoryOptions = {"Sinker", "Tea Base", "Flavoring", "Milk"};
-        this.category = new JComboBox<String>(categoryOptions);
-        this.category.setMaximumSize(category.getPreferredSize());
-        this.category.setAlignmentX(Component.CENTER_ALIGNMENT);
+        category = new JComboBox<String>(categoryOptions);
+        category.setMaximumSize(category.getPreferredSize());
+        category.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         
 
@@ -201,16 +214,16 @@ public class VendingMachineView{
         panel.add(category);
 
 
-        this.iName.setVisible(false);
-        this.iName.setEnabled(false);
-        this.iPrice.setVisible(false);
-        this.iPrice.setEnabled(false);
-        this.iQuantity.setVisible(false);
-        this.iQuantity.setEnabled(false);
-        this.iCalories.setVisible(false);
-        this.iCalories.setEnabled(false);
-        this.category.setVisible(false);
-        this.category.setEnabled(false);
+        iName.setVisible(false);
+        iName.setEnabled(false);
+        iPrice.setVisible(false);
+        iPrice.setEnabled(false);
+        iQuantity.setVisible(false);
+        iQuantity.setEnabled(false);
+        iCalories.setVisible(false);
+        iCalories.setEnabled(false);
+        category.setVisible(false);
+        category.setEnabled(false);
 
 
         RegSubmit = new JButton("Add Regular Item");
@@ -221,12 +234,12 @@ public class VendingMachineView{
         SpecSubmit.setBounds(10, 10, 60, 60);
         SubmitItem.setBounds(10, 10, 60, 60);
         
-        this.RegSubmit.setEnabled(false);
-        this.RegSubmit.setVisible(false);
-        this.SpecSubmit.setEnabled(false);
-        this.SpecSubmit.setVisible(false);
-        this.SubmitItem.setEnabled(false);
-        this.SubmitItem.setVisible(false);
+        RegSubmit.setEnabled(false);
+        RegSubmit.setVisible(false);
+        SpecSubmit.setEnabled(false);
+        SpecSubmit.setVisible(false);
+        SubmitItem.setEnabled(false);
+        SubmitItem.setVisible(false);
 
         panel.add(RegSubmit);
         panel.add(SpecSubmit);
@@ -235,36 +248,42 @@ public class VendingMachineView{
         RegVend.setAlignmentX(Component.CENTER_ALIGNMENT);
         SpecVend.setAlignmentX(Component.CENTER_ALIGNMENT);
         TestVend.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        //create "Add Item" button
+        RegSubmit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        SpecSubmit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        SubmitItem.setAlignmentX(Component.CENTER_ALIGNMENT);
+       
         
         // VENDING MENU
 
-        this.insertCash = new JButton("Insert Cash");
-        this.selectItem = new JButton("Select Item");
-        this.cancelTransaction = new JButton("Cancel Transaction");
-        this.customizeProduct = new JButton("Customize Product");
-        this.printReceipt = new JButton("Exit");
-        this.customizedPrice = new JLabel ("Total price is: ");
+        vendingMenuLabel = new JLabel("Vending Features Testing");
+        vendingMenuLabel.setVisible(false);
+        vendingMenuLabel.setPreferredSize(new Dimension(100,100));
+        vendingMenuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(vendingMenuLabel);
 
-        this.customizedPrice.setVisible(false);
-        this.insertCash.setVisible(false);
-        this.insertCash.setEnabled(false);
-        this.selectItem.setVisible(false);
-        this.selectItem.setEnabled(false);
-        this.cancelTransaction.setVisible(false);
-        this.cancelTransaction.setEnabled(false);
-        this.customizeProduct.setVisible(false);
-        this.customizeProduct.setEnabled(false);
-        this.printReceipt.setVisible(false);
-        this.printReceipt.setEnabled(false);
+        insertCash = new JButton("Insert Cash");
+        selectItem = new JButton("Select Item");
+        cancelTransaction = new JButton("Cancel Transaction");
+        customizeProduct = new JButton("Customize Product");
+        printReceipt = new JButton("Exit");
+
+
+        insertCash.setVisible(false);
+        insertCash.setEnabled(false);
+        selectItem.setVisible(false);
+        selectItem.setEnabled(false);
+        cancelTransaction.setVisible(false);
+        cancelTransaction.setEnabled(false);
+        customizeProduct.setVisible(false);
+        customizeProduct.setEnabled(false);
+        printReceipt.setVisible(false);
+        printReceipt.setEnabled(false);
 
         insertCash.setBounds(10, 10, 60, 60);
         selectItem.setBounds(10, 10, 60, 60);
         cancelTransaction.setBounds(10, 10, 60, 60);
         customizeProduct.setBounds(10, 10, 60, 60);
         printReceipt.setBounds(10, 10, 60, 60);
-        buttonpanel.add(customizedPrice);
         buttonpanel.add(insertCash);
         buttonpanel.add(selectItem);
         buttonpanel.add(cancelTransaction);
@@ -273,56 +292,56 @@ public class VendingMachineView{
         
         // INSERT CASH
 
-        this.moneyLabel = new JLabel();
-        this.moneyLabel.setVisible(false);
+        moneyLabel = new JLabel();
+        moneyLabel.setVisible(false);
         buttonpanel.add(moneyLabel);
         
         String[] cashChoice = {"1000", "500", "200", "100", "50", "20", "10", "5", "1"};
-        this.denominations = new JComboBox<String>(cashChoice);
-        this.denominations.setMaximumSize(denominations.getPreferredSize());
-        this.denominations.setAlignmentX(Component.CENTER_ALIGNMENT);
+        denominations = new JComboBox<String>(cashChoice);
+        denominations.setMaximumSize(denominations.getPreferredSize());
+        denominations.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonpanel.add(denominations);
-        this.denominations.setVisible(false);
-        this.denominations.setEnabled(false);
+        denominations.setVisible(false);
+        denominations.setEnabled(false);
 
-        this.confirmCash = new JButton("Insert denomination");
-        this.confirmCash.setVisible(false);
-        this.confirmCash.setEnabled(false);
+        confirmCash = new JButton("Insert denomination");
+        confirmCash.setVisible(false);
+        confirmCash.setEnabled(false);
         buttonpanel.add(confirmCash);
         
         // REPLENISH CHANGE
 
-        this.replenishAmount = new JTextField();
-        this.replenishAmount.setColumns(10);
-        this.replenishChangeConfirm = new JButton("Replenish denomination");
-        this.replenishChangeConfirm.setVisible(false);
-        this.replenishChangeConfirm.setEnabled(false);
-        this.replenishAmount.setVisible(false);
-        this.replenishAmount.setEnabled(false);
+        replenishAmount = new JTextField();
+        replenishAmount.setColumns(10);
+        replenishChangeConfirm = new JButton("Replenish denomination");
+        replenishChangeConfirm.setVisible(false);
+        replenishChangeConfirm.setEnabled(false);
+        replenishAmount.setVisible(false);
+        replenishAmount.setEnabled(false);
         buttonpanel.add(replenishAmount);
         buttonpanel.add(replenishChangeConfirm);
 
         // REPLENISH ITEM   
         
-        this.items = new JComboBox<String>();
-        this.items.setMaximumSize(items.getPreferredSize());
-        this.items.setAlignmentX(Component.CENTER_ALIGNMENT);
+        items = new JComboBox<String>();
+        items.setMaximumSize(items.getPreferredSize());
+        items.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonpanel.add(items);
-        this.items.setVisible(false);
-        this.items.setEnabled(false);
+        items.setVisible(false);
+        items.setEnabled(false);
 
         
-        this.replenishItemConfirm = new JButton("Replenish item");
-        this.replenishItemConfirm.setVisible(false);
-        this.replenishItemConfirm.setEnabled(false);
+        replenishItemConfirm = new JButton("Replenish item");
+        replenishItemConfirm.setVisible(false);
+        replenishItemConfirm.setEnabled(false);
 
         buttonpanel.add(replenishItemConfirm);
         
         // SET PRICE
 
-        this.setPriceConfirm = new JButton("Set Price");
-        this.setPriceConfirm.setVisible(false);
-        this.setPriceConfirm.setEnabled(false);
+        setPriceConfirm = new JButton("Set Price");
+        setPriceConfirm.setVisible(false);
+        setPriceConfirm.setEnabled(false);
 
         buttonpanel.add(setPriceConfirm);
 
@@ -369,67 +388,66 @@ public class VendingMachineView{
         // SELECT ITEM
         
 
-        this.chooseItemLabel = new JLabel("Input item number");
+        chooseItemLabel = new JLabel("Input item number");
         buttonpanel.add(chooseItemLabel);
-        this.chooseItemLabel.setVisible(false);
-        this.confirmItem = new JButton ("Confirm");
-        this.itemSelect = new JTextField();
-        this.itemSelect.setColumns(10);
+        chooseItemLabel.setVisible(false);
+        confirmItem = new JButton ("Confirm");
+        itemSelect = new JTextField();
+        itemSelect.setColumns(10);
         panel.add(itemSelect);
         panel.add(confirmItem);
-        this.itemSelect.setVisible(false);
-        this.itemSelect.setEnabled(false);
-        this.confirmItem.setVisible(false);
-        this.confirmItem.setEnabled(false);
+        itemSelect.setVisible(false);
+        itemSelect.setEnabled(false);
+        confirmItem.setVisible(false);
+        confirmItem.setEnabled(false);
         
         // CUSTOMIZE PRODUCT
-    
-        this.customizedCalories = new JLabel("Customized Calories");
-        this.customizedCalories.setVisible(false);
-        
-        buttonpanel.add(customizedCalories);
-        
-        this.custominsertcash = new JButton("Insert Cash");
-        this.custominsertcash.setVisible(false);
-        this.custominsertcash.setEnabled(false);
 
-        this.customconfirmcash = new JButton("Insert denomination");
-        this.customconfirmcash.setVisible(false);
-        this.customconfirmcash.setEnabled(false);
+        
+        custominsertcash = new JButton("Insert Cash");
+        custominsertcash.setVisible(false);
+        custominsertcash.setEnabled(false);
+
+        customconfirmcash = new JButton("Insert denomination");
+        customconfirmcash.setVisible(false);
+        customconfirmcash.setEnabled(false);
 
         buttonpanel.add(custominsertcash);
         buttonpanel.add(customconfirmcash);
 
-        this.proceedTransaction = new JButton("Proceed and Buy");
-        this.proceedTransaction.setEnabled(false);
-        this.proceedTransaction.setVisible(false);
+        proceedTransaction = new JButton("Proceed and Buy");
+        proceedTransaction.setEnabled(false);
+        proceedTransaction.setVisible(false);
         buttonpanel.add(proceedTransaction);
         
             // SINKERS
 
         
+        addSinker = new JButton("Add Sinker");
+        addSinker.setEnabled(false);
+        addSinker.setVisible(false);
 
-        this.submitSinker = new JButton("Confirm Sinkers");
-        this.submitSinker.setEnabled(false);
-        this.submitSinker.setVisible(false);
+        submitSinker = new JButton("Confirm Sinker/s");
+        submitSinker.setEnabled(false);
+        submitSinker.setVisible(false);
 
-        
+        buttonpanel.add(addSinker);
         buttonpanel.add(submitSinker);
         
 
             // TEABASES
 
-        this.submitTeaBase = new JButton("Confirm Teabase");
-        this.submitTeaBase.setEnabled(false);
-        this.submitTeaBase.setVisible(false);
+        submitTeaBase = new JButton("Confirm Teabase");
+        submitTeaBase.setEnabled(false);
+        submitTeaBase.setVisible(false);
 
         buttonpanel.add(submitTeaBase);
 
             // MILKS
 
-        this.submitMilk = new JButton("Confirm Milk");
-        this.submitMilk.setEnabled(false);
-        this.submitMilk.setVisible(false);
+        submitMilk = new JButton("Confirm Milk");
+        submitMilk.setEnabled(false);
+        submitMilk.setVisible(false);
 
         buttonpanel.add(submitMilk);
 
@@ -438,79 +456,77 @@ public class VendingMachineView{
 
   
 
-        this.submitFlavoring = new JButton("Confirm Flavoring");
-        this.submitFlavoring.setEnabled(false);
-        this.submitFlavoring.setVisible(false);
+        submitFlavoring = new JButton("Confirm Flavoring");
+        submitFlavoring.setEnabled(false);
+        submitFlavoring.setVisible(false);
 
         buttonpanel.add(submitFlavoring);
         
 
         // MAINTENANCE MENU
 
-        this.changeListTextArea = new JTextArea("");
-        this.changeListTextArea.setPreferredSize(new Dimension(220,30));
-        this.changeListTextArea.setEditable(false);
-        this.changeListTextArea.setVisible(false);
+        maintenanceMenuLabel = new JLabel("Vending Features Testing");
+        maintenanceMenuLabel.setVisible(false);
+        maintenanceMenuLabel.setPreferredSize(new Dimension(100,100));
+        maintenanceMenuLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(maintenanceMenuLabel);
 
-        panel.add(changeListTextArea);
-        
+        displayItemList = new JButton("Display Item List");
+        endItemDisplay = new JButton ("Back");
+        displayChangeList = new JButton("Display Change List");
+        endChangeDisplay = new JButton ("Back");
+        replenishItem = new JButton("Replenish Item");
+        replenishChange = new JButton("Replenish Change");
+        addNewItem = new JButton("Add New Item");
+        setPrice = new JButton("Set Price");
+        collectPayment = new JButton("Collect Payment");
+        printSummary = new JButton("Print Summary");
+        endTransactionDisplay = new JButton ("Back");
+        endMaintenance = new JButton("End Maintenance Features Test");
 
-        this.displayItemList = new JButton("Display Item List");
-        this.endItemDisplay = new JButton ("Back");
-        this.displayChangeList = new JButton("Display Change List");
-        this.endChangeDisplay = new JButton ("Back");
-        this.replenishItem = new JButton("Replenish Item");
-        this.replenishChange = new JButton("Replenish Change");
-        this.addNewItem = new JButton("Add New Item");
-        this.setPrice = new JButton("Set Price");
-        this.collectPayment = new JButton("Collect Payment");
-        this.printSummary = new JButton("Print Summary");
-        this.endTransactionDisplay = new JButton ("Back");
-        this.endMaintenance = new JButton("End Maintenance Features Test");
+        transacListArea = new JTextArea ("");
+        transacListArea.setPreferredSize(new Dimension(300,300));
+        itemMaintenance = new JTextField();
+        itemMaintenance.setColumns(10);
+        transacListArea.setEditable(false);
+        transacListArea.setVisible(false);
 
-        this.transacListArea = new JTextArea ("");
-        this.transacListArea.setPreferredSize(new Dimension(300,300));
-        this.itemMaintenance = new JTextField();
-        this.itemMaintenance.setColumns(10);
-        this.transacListArea.setEditable(false);
-        this.transacListArea.setVisible(false);
+        displayItemList.setVisible(false);
+        displayItemList.setEnabled(false);
+        endItemDisplay.setVisible(false);
+        endItemDisplay.setEnabled(false);
 
-        this.displayItemList.setVisible(false);
-        this.displayItemList.setEnabled(false);
-        this.endItemDisplay.setVisible(false);
-        this.endItemDisplay.setEnabled(false);
-
-        this.displayChangeList.setVisible(false);
-        this.displayChangeList.setEnabled(false);
-        this.endChangeDisplay.setVisible(false);
-        this.endChangeDisplay.setEnabled(false);
+        displayChangeList.setVisible(false);
+        displayChangeList.setEnabled(false);
+        endChangeDisplay.setVisible(false);
+        endChangeDisplay.setEnabled(false);
 
 
-        this.replenishItem.setVisible(false);
-        this.replenishItem.setEnabled(false);
+        replenishItem.setVisible(false);
+        replenishItem.setEnabled(false);
 
-        this.replenishChange.setVisible(false);
-        this.replenishChange.setEnabled(false);
+        replenishChange.setVisible(false);
+        replenishChange.setEnabled(false);
 
-        this.addNewItem.setVisible(false);
-        this.addNewItem.setEnabled(false);
+        addNewItem.setVisible(false);
+        addNewItem.setEnabled(false);
 
-        this.setPrice.setVisible(false);
-        this.setPrice.setEnabled(false);
-        this.itemMaintenance.setEnabled(false);
-        this.itemMaintenance.setVisible(false);
+        setPrice.setVisible(false);
+        setPrice.setEnabled(false);
+        itemMaintenance.setEnabled(false);
+        itemMaintenance.setVisible(false);
 
 
-        this.collectPayment.setVisible(false);
-        this.collectPayment.setEnabled(false);
+        collectPayment.setVisible(false);
+        collectPayment.setEnabled(false);
 
-        this.printSummary.setVisible(false);
-        this.printSummary.setEnabled(false);
-        this.endTransactionDisplay.setVisible(false);
-        this.endTransactionDisplay.setEnabled(false);
+        printSummary.setVisible(false);
+        printSummary.setEnabled(false);
+        endTransactionDisplay.setVisible(false);
+        endTransactionDisplay.setEnabled(false);
 
-        this.endMaintenance.setVisible(false);
-        this.endMaintenance.setEnabled(false);
+        endMaintenance.setVisible(false);
+        endMaintenance.setEnabled(false);
 
         displayItemList.setBounds(10, 10, 60, 60);
         endItemDisplay.setBounds(10, 10, 60, 60);
@@ -542,28 +558,28 @@ public class VendingMachineView{
     
         // CREATE AGAIN MENU
         
-        this.CreateRegAgainMenu = new JLabel("<html>You have an existing regular vending machine, do you want to create again? XD <br/></html>");
-        this.CreateSpecAgainMenu = new JLabel("<html>You have an existing special vending machine, do you want to create again? XD <br/></html>");
-        this.regyes = new JButton("Yes");
-        this.regno = new JButton("No");
+        CreateRegAgainMenu = new JLabel("<html>You have an existing regular vending machine, do you want to create again? XD <br/></html>");
+        CreateSpecAgainMenu = new JLabel("<html>You have an existing special vending machine, do you want to create again? XD <br/></html>");
+        regyes = new JButton("Yes");
+        regno = new JButton("No");
         
-        this.specyes = new JButton("Yes");
-        this.specno = new JButton("No");
+        specyes = new JButton("Yes");
+        specno = new JButton("No");
 
-        this.regyes.setVisible(false);
-        this.regyes.setEnabled(false);
+        regyes.setVisible(false);
+        regyes.setEnabled(false);
 
-        this.specyes.setVisible(false);
-        this.specyes.setEnabled(false);
+        specyes.setVisible(false);
+        specyes.setEnabled(false);
 
-        this.regno.setVisible(false);
-        this.regno.setEnabled(false);
+        regno.setVisible(false);
+        regno.setEnabled(false);
 
-        this.specno.setVisible(false);
-        this.specno.setEnabled(false);
+        specno.setVisible(false);
+        specno.setEnabled(false);
 
-        this.CreateRegAgainMenu.setVisible(false);
-        this.CreateSpecAgainMenu.setVisible(false);
+        CreateRegAgainMenu.setVisible(false);
+        CreateSpecAgainMenu.setVisible(false);
   
         
 
@@ -582,6 +598,7 @@ public class VendingMachineView{
         buttonpanel.add(specno);
         
         
+        
 
     }
 
@@ -593,7 +610,7 @@ public class VendingMachineView{
      */
     public void setRegVendBtnListener(ActionListener actionListener) {
 
-		this.RegVend.addActionListener(actionListener);
+		RegVend.addActionListener(actionListener);
         
         
 	}
@@ -604,7 +621,7 @@ public class VendingMachineView{
     public void setSpecVendBtnListener(ActionListener actionListener) {
 
 	
-        this.SpecVend.addActionListener(actionListener);
+        SpecVend.addActionListener(actionListener);
         
 	}
     /**
@@ -614,7 +631,7 @@ public class VendingMachineView{
 
     public void setTestVendBtnListener(ActionListener actionListener) {
 
-		this.TestVend.addActionListener(actionListener);
+		TestVend.addActionListener(actionListener);
         
         
 	}
@@ -627,7 +644,7 @@ public class VendingMachineView{
 
     public void setVendListener(ActionListener actionListener) {
 
-	 this.VendFeatures.addActionListener(actionListener);
+	 VendFeatures.addActionListener(actionListener);
         
         
 	}
@@ -638,7 +655,7 @@ public class VendingMachineView{
 
     public void setMaintListener(ActionListener actionListener) {
 
-		this.MaintFeatures.addActionListener(actionListener);
+		MaintFeatures.addActionListener(actionListener);
         
         
 	}
@@ -651,7 +668,7 @@ public class VendingMachineView{
 
     public void setRegSubmitListener(ActionListener actionListener) {
 
-		this.RegSubmit.addActionListener(actionListener);
+		RegSubmit.addActionListener(actionListener);
         
         
 	}
@@ -662,7 +679,7 @@ public class VendingMachineView{
 
     public void setSpecSubmitListener(ActionListener actionListener) {
 
-		this.SpecSubmit.addActionListener(actionListener);
+		SpecSubmit.addActionListener(actionListener);
         
         
 	}
@@ -673,7 +690,7 @@ public class VendingMachineView{
      */
     public void setSubmitBtnListener(ActionListener actionListener){
 
-        this.SubmitItem.addActionListener(actionListener);
+        SubmitItem.addActionListener(actionListener);
 
     }
 
@@ -685,7 +702,7 @@ public class VendingMachineView{
     public void setInsertCashBtn(ActionListener actionListener){
 
         
-        this.insertCash.addActionListener(actionListener);
+        insertCash.addActionListener(actionListener);
         
     }
     /**
@@ -696,7 +713,7 @@ public class VendingMachineView{
     public void setSelectItemBtn(ActionListener actionListener){
 
 
-        this.selectItem.addActionListener(actionListener);
+        selectItem.addActionListener(actionListener);
         
     }
     /**
@@ -706,7 +723,7 @@ public class VendingMachineView{
     public void setCancelTransactionBtn(ActionListener actionListener){
 
 
-        this.cancelTransaction.addActionListener(actionListener);
+        cancelTransaction.addActionListener(actionListener);
         
     }
     /**
@@ -717,7 +734,7 @@ public class VendingMachineView{
     public void setCustomizeProductBtn(ActionListener actionListener){
 
 
-        this.customizeProduct.addActionListener(actionListener);
+        customizeProduct.addActionListener(actionListener);
         
     }
 /**
@@ -727,7 +744,7 @@ public class VendingMachineView{
     public void setProceedTransactionBtn(ActionListener actionListener){
 
 
-        this.proceedTransaction.addActionListener(actionListener);
+        proceedTransaction.addActionListener(actionListener);
         
     }
     /**
@@ -738,10 +755,21 @@ public class VendingMachineView{
     public void setCustomConfirmCashBtn(ActionListener actionListener){
 
 
-        this.customconfirmcash.addActionListener(actionListener);
+        customconfirmcash.addActionListener(actionListener);
         
     }
 
+    /**
+     *  sets an actionlistener for adding a sinker
+     * @param actionListener is the actionlistener instance for the button
+     */
+
+    public void setAddSinkerBtn(ActionListener actionListener){
+
+
+        addSinker.addActionListener(actionListener);
+        
+    }
 
     /**
      *  sets an actionlistener for submitting the chosen sinkers
@@ -750,7 +778,7 @@ public class VendingMachineView{
     public void setSubmitSinkerBtn(ActionListener actionListener){
 
 
-        this.submitSinker.addActionListener(actionListener);
+        submitSinker.addActionListener(actionListener);
         
     }
     /**
@@ -760,7 +788,7 @@ public class VendingMachineView{
     public void endItemDisplay(ActionListener actionListener){
 
 
-        this.endItemDisplay.addActionListener(actionListener);
+        endItemDisplay.addActionListener(actionListener);
         
     }
     /**
@@ -770,7 +798,7 @@ public class VendingMachineView{
     public void endChangeDisplay(ActionListener actionListener){
 
 
-        this.endChangeDisplay.addActionListener(actionListener);
+        endChangeDisplay.addActionListener(actionListener);
         
     }
     /**
@@ -780,7 +808,7 @@ public class VendingMachineView{
     public void endTransactionDisplay(ActionListener actionListener){
 
 
-        this.endTransactionDisplay.addActionListener(actionListener);
+        endTransactionDisplay.addActionListener(actionListener);
         
     }
     
@@ -791,7 +819,7 @@ public class VendingMachineView{
     public void setSubmitTeaBaseBtn(ActionListener actionListener){
 
 
-        this.submitTeaBase.addActionListener(actionListener);
+        submitTeaBase.addActionListener(actionListener);
         
     }
     /**
@@ -801,7 +829,7 @@ public class VendingMachineView{
     public void setSubmitFlavoringBtn(ActionListener actionListener){
 
 
-        this.submitFlavoring.addActionListener(actionListener);
+        submitFlavoring.addActionListener(actionListener);
         
     }
     /**
@@ -811,7 +839,7 @@ public class VendingMachineView{
     public void setSubmitMilkBtn(ActionListener actionListener){
 
 
-        this.submitMilk.addActionListener(actionListener);
+        submitMilk.addActionListener(actionListener);
         
     }
     
@@ -823,7 +851,7 @@ public class VendingMachineView{
     public void setPrintReceiptBtn(ActionListener actionListener){
             
 
-        this.printReceipt.addActionListener(actionListener);
+        printReceipt.addActionListener(actionListener);
         
     }
     
@@ -837,7 +865,7 @@ public class VendingMachineView{
 
     public void setDisplayItemListBtn(ActionListener actionListener){
 
-        this.displayItemList.addActionListener(actionListener);
+        displayItemList.addActionListener(actionListener);
 
     }
     /**
@@ -846,7 +874,7 @@ public class VendingMachineView{
      */ 
     public void setDisplayChangeListBtn(ActionListener actionListener){
 
-        this.displayChangeList.addActionListener(actionListener);
+        displayChangeList.addActionListener(actionListener);
 
     }
     /**
@@ -856,7 +884,7 @@ public class VendingMachineView{
 
     public void setReplenishItemBtn(ActionListener actionListener){
 
-        this.replenishItem.addActionListener(actionListener);
+        replenishItem.addActionListener(actionListener);
 
     }
     /**
@@ -866,7 +894,7 @@ public class VendingMachineView{
 
     public void setReplenishChangeBtn(ActionListener actionListener){
 
-        this.replenishChange.addActionListener(actionListener);
+        replenishChange.addActionListener(actionListener);
 
     }
     /**
@@ -875,7 +903,7 @@ public class VendingMachineView{
      */
     public void setReplenishChangeConfirmBtn(ActionListener actionListener){ // unadded to uml, needs javadoc
 
-        this.replenishChangeConfirm.addActionListener(actionListener);
+        replenishChangeConfirm.addActionListener(actionListener);
 
     }
     /**
@@ -884,7 +912,7 @@ public class VendingMachineView{
      */
     public void setReplenishItemConfirmBtn(ActionListener actionListener){ // unadded to uml, needs javadoc
 
-        this.replenishItemConfirm.addActionListener(actionListener);
+        replenishItemConfirm.addActionListener(actionListener);
 
     }
     /**
@@ -894,7 +922,7 @@ public class VendingMachineView{
 
     public void setSetPriceConfirmBtn(ActionListener actionListener){ // unadded to uml, needs javadoc
 
-        this.setPriceConfirm.addActionListener(actionListener);
+        setPriceConfirm.addActionListener(actionListener);
 
     }
 
@@ -905,7 +933,7 @@ public class VendingMachineView{
     
     public void setAddNewItemBtn(ActionListener actionListener){
 
-        this.addNewItem.addActionListener(actionListener);
+        addNewItem.addActionListener(actionListener);
 
     }
     /**
@@ -915,7 +943,7 @@ public class VendingMachineView{
 
     public void setSetPriceBtn(ActionListener actionListener){
 
-        this.setPrice.addActionListener(actionListener);
+        setPrice.addActionListener(actionListener);
 
     }
     /**
@@ -925,7 +953,7 @@ public class VendingMachineView{
 
     public void setCollectPaymentBtn(ActionListener actionListener){
 
-        this.collectPayment.addActionListener(actionListener);
+        collectPayment.addActionListener(actionListener);
 
     }
     /**
@@ -935,7 +963,7 @@ public class VendingMachineView{
 
     public void setPrintSummaryBtn(ActionListener actionListener){
 
-        this.printSummary.addActionListener(actionListener);
+        printSummary.addActionListener(actionListener);
 
     }
     /**
@@ -945,7 +973,7 @@ public class VendingMachineView{
 
     public void setEndMaintenanceBtn(ActionListener actionListener){
 
-        this.endMaintenance.addActionListener(actionListener);
+        endMaintenance.addActionListener(actionListener);
 
     }
     /**
@@ -955,7 +983,7 @@ public class VendingMachineView{
 
     public void setRegYesBtn(ActionListener actionListener){
 
-        this.regyes.addActionListener(actionListener);
+        regyes.addActionListener(actionListener);
 
     
     }
@@ -965,7 +993,7 @@ public class VendingMachineView{
      */
     public void setRegNoBtn(ActionListener actionListener){
 
-        this.regno.addActionListener(actionListener);
+        regno.addActionListener(actionListener);
 
     }
     /**
@@ -975,7 +1003,7 @@ public class VendingMachineView{
 
     public void setSpecYesBtn(ActionListener actionListener){
 
-        this.specyes.addActionListener(actionListener);
+        specyes.addActionListener(actionListener);
 
     }
     /**
@@ -985,7 +1013,7 @@ public class VendingMachineView{
 
     public void setSpecNoBtn(ActionListener actionListener){
 
-        this.specno.addActionListener(actionListener);
+        specno.addActionListener(actionListener);
 
     }
     /**
@@ -995,13 +1023,13 @@ public class VendingMachineView{
 
     public void insertCashBtns (ActionListener actionListener){
 
-        this.confirmCash.addActionListener(actionListener);
+        confirmCash.addActionListener(actionListener);
         
     }
 
     public void setCustomInsertCashBtn (ActionListener actionListener){
 
-        this.custominsertcash.addActionListener(actionListener);
+        custominsertcash.addActionListener(actionListener);
         
     }
 
@@ -1010,7 +1038,7 @@ public class VendingMachineView{
      * @param actionListener is the actionlistener instance for the button
      */
     public void confirmItemBtn (ActionListener actionListener){
-        this.confirmItem.addActionListener(actionListener);
+        confirmItem.addActionListener(actionListener);
     }
 
     /**
@@ -1020,8 +1048,8 @@ public class VendingMachineView{
 
     public void SubmitItemStatus(boolean status){
 
-        this.SubmitItem.setEnabled(status);
-        this.SubmitItem.setVisible(status);
+        SubmitItem.setEnabled(status);
+        SubmitItem.setVisible(status);
 
     }
     /**
@@ -1030,13 +1058,13 @@ public class VendingMachineView{
      */
     public void FirstMenuStatus (boolean status){
 
-        this.RegVend.setEnabled(status);
-        this.RegVend.setVisible(status);
-        this.SpecVend.setEnabled(status);
-        this.SpecVend.setVisible(status);
-        this.TestVend.setEnabled(status);
-        this.TestVend.setVisible(status);
-        this.nameLbl.setVisible(status);
+        RegVend.setEnabled(status);
+        RegVend.setVisible(status);
+        SpecVend.setEnabled(status);
+        SpecVend.setVisible(status);
+        TestVend.setEnabled(status);
+        TestVend.setVisible(status);
+        nameLbl.setVisible(status);
         
     }
     /**
@@ -1047,37 +1075,39 @@ public class VendingMachineView{
     
     public void SecondMenuStatus (boolean status){
 
-        this.VendMenu.setVisible(status);
-        this.VendFeatures.setVisible(status);
-        this.MaintFeatures.setVisible(status);
-        this.VendFeatures.setEnabled(status);
-        this.MaintFeatures.setEnabled(status);
+        VendMenu.setVisible(status);
+        VendFeatures.setVisible(status);
+        MaintFeatures.setVisible(status);
+        VendFeatures.setEnabled(status);
+        MaintFeatures.setEnabled(status);
 
 
     }
+
     /**
      * sets the status of the vending menu
      * @param status determines if they are visible/enabled or not (T/F) 
      */
 
-
+    
     public void VendingMenuStatus(boolean status){
 
+        vendingMenuLabel.setVisible(status);
 
-        this.insertCash.setEnabled(status);
-        this.insertCash.setVisible(status);
+        insertCash.setEnabled(status);
+        insertCash.setVisible(status);
         
-        this.selectItem.setEnabled(status);
-        this.selectItem.setVisible(status);
+        selectItem.setEnabled(status);
+        selectItem.setVisible(status);
 
-        this.cancelTransaction.setEnabled(status);
-        this.cancelTransaction.setVisible(status);
+        cancelTransaction.setEnabled(status);
+        cancelTransaction.setVisible(status);
 
-        this.customizeProduct.setEnabled(status);
-        this.customizeProduct.setVisible(status);
+        customizeProduct.setEnabled(status);
+        customizeProduct.setVisible(status);
 
-        this.printReceipt.setEnabled(status);
-        this.printReceipt.setVisible(status);
+        printReceipt.setEnabled(status);
+        printReceipt.setVisible(status);
 
 
 
@@ -1088,34 +1118,37 @@ public class VendingMachineView{
      * sets the status of the maintenance menu
      * @param status determines if they are visible/enabled or not (T/F) 
      */
+
     public void MaintMenuStatus(boolean status){
 
-        this.displayItemList.setEnabled(status);
-        this.displayItemList.setVisible(status);
+        maintenanceMenuLabel.setVisible(status);
 
-        this.displayChangeList.setEnabled(status);
-        this.displayChangeList.setVisible(status);
+        displayItemList.setEnabled(status);
+        displayItemList.setVisible(status);
 
-        this.replenishItem.setEnabled(status);
-        this.replenishItem.setVisible(status);
+        displayChangeList.setEnabled(status);
+        displayChangeList.setVisible(status);
 
-        this.replenishChange.setEnabled(status);
-        this.replenishChange.setVisible(status);
+        replenishItem.setEnabled(status);
+        replenishItem.setVisible(status);
 
-        this.addNewItem.setEnabled(status);
-        this.addNewItem.setVisible(status);
+        replenishChange.setEnabled(status);
+        replenishChange.setVisible(status);
 
-        this.setPrice.setEnabled(status);
-        this.setPrice.setVisible(status);
+        addNewItem.setEnabled(status);
+        addNewItem.setVisible(status);
 
-        this.collectPayment.setEnabled(status);
-        this.collectPayment.setVisible(status);
+        setPrice.setEnabled(status);
+        setPrice.setVisible(status);
 
-        this.printSummary.setEnabled(status);
-        this.printSummary.setVisible(status);
+        collectPayment.setEnabled(status);
+        collectPayment.setVisible(status);
 
-        this.endMaintenance.setEnabled(status);
-        this.endMaintenance.setVisible(status);
+        printSummary.setEnabled(status);
+        printSummary.setVisible(status);
+
+        endMaintenance.setEnabled(status);
+        endMaintenance.setVisible(status);
 
     }
     /**
@@ -1125,12 +1158,11 @@ public class VendingMachineView{
 
     public void createRegAgainStatus(boolean status){
 
-
-        this.regyes.setEnabled(status);
-        this.regyes.setVisible(status);
-        this.regno.setEnabled(status);
-        this.regno.setVisible(status);
-        this.CreateRegAgainMenu.setVisible(status);
+        regyes.setEnabled(status);
+        regyes.setVisible(status);
+        regno.setEnabled(status);
+        regno.setVisible(status);
+        CreateRegAgainMenu.setVisible(status);
 
     }
 
@@ -1141,12 +1173,11 @@ public class VendingMachineView{
 
     public void createSpecAgainStatus(boolean status){
 
-
-        this.specyes.setEnabled(status);
-        this.specyes.setVisible(status);
-        this.specno.setEnabled(status);
-        this.specno.setVisible(status);
-        this.CreateSpecAgainMenu.setVisible(status);
+        specyes.setEnabled(status);
+        specyes.setVisible(status);
+        specno.setEnabled(status);
+        specno.setVisible(status);
+        CreateSpecAgainMenu.setVisible(status);
 
     }
     /**
@@ -1156,21 +1187,21 @@ public class VendingMachineView{
 
     public void RegularItemCreate(boolean status){
 
-        this.Items.setVisible(status);
-        this.ilName.setVisible(status);
-        this.ilPrice.setVisible(status);
-        this.ilQuantity.setVisible(status);
-        this.ilCalories.setVisible(status);
-        this.iName.setVisible(status);
-        this.iName.setEnabled(status);
-        this.iPrice.setVisible(status);
-        this.iPrice.setEnabled(status);
-        this.iQuantity.setVisible(status);
-        this.iQuantity.setEnabled(status);
-        this.iCalories.setVisible(status);
-        this.iCalories.setEnabled(status);
-        this.RegSubmit.setEnabled(status);
-        this.RegSubmit.setVisible(status);
+        Items.setVisible(status);
+        ilName.setVisible(status);
+        ilPrice.setVisible(status);
+        ilQuantity.setVisible(status);
+        ilCalories.setVisible(status);
+        iName.setVisible(status);
+        iName.setEnabled(status);
+        iPrice.setVisible(status);
+        iPrice.setEnabled(status);
+        iQuantity.setVisible(status);
+        iQuantity.setEnabled(status);
+        iCalories.setVisible(status);
+        iCalories.setEnabled(status);
+        RegSubmit.setEnabled(status);
+        RegSubmit.setVisible(status);
         
     }
 
@@ -1181,24 +1212,24 @@ public class VendingMachineView{
 
     public void SpecialItemCreate(boolean status){
 
-        this.Items.setVisible(status);
-        this.ilName.setVisible(status);
-        this.ilPrice.setVisible(status);
-        this.ilQuantity.setVisible(status);
-        this.ilCalories.setVisible(status);
-        this.ilCategory.setVisible(status);
-        this.iName.setVisible(status);
-        this.iName.setEnabled(status);
-        this.iPrice.setVisible(status);
-        this.iPrice.setEnabled(status);
-        this.iQuantity.setVisible(status);
-        this.iQuantity.setEnabled(status);
-        this.iCalories.setVisible(status);
-        this.iCalories.setEnabled(status);
-        this.category.setVisible(status);
-        this.category.setEnabled(status);
-        this.SpecSubmit.setEnabled(status);
-        this.SpecSubmit.setVisible(status);
+        Items.setVisible(status);
+        ilName.setVisible(status);
+        ilPrice.setVisible(status);
+        ilQuantity.setVisible(status);
+        ilCalories.setVisible(status);
+        ilCategory.setVisible(status);
+        iName.setVisible(status);
+        iName.setEnabled(status);
+        iPrice.setVisible(status);
+        iPrice.setEnabled(status);
+        iQuantity.setVisible(status);
+        iQuantity.setEnabled(status);
+        iCalories.setVisible(status);
+        iCalories.setEnabled(status);
+        category.setVisible(status);
+        category.setEnabled(status);
+        SpecSubmit.setEnabled(status);
+        SpecSubmit.setVisible(status);
 
     }
 
@@ -1209,21 +1240,21 @@ public class VendingMachineView{
     
     public void insertCashState(boolean status){
 
-        this.confirmCash.setVisible(status);
-        this.confirmCash.setEnabled(status);
-        this.denominations.setVisible(status);
-        this.denominations.setEnabled(status);
-        this.moneyLabel.setVisible(status);
+        confirmCash.setVisible(status);
+        confirmCash.setEnabled(status);
+        denominations.setVisible(status);
+        denominations.setEnabled(status);
+        moneyLabel.setVisible(status);
         
     }
 
     public void custominsertCashState(boolean status){
         
-        this.customconfirmcash.setVisible(status);
-        this.customconfirmcash.setEnabled(status);
-        this.denominations.setVisible(status);
-        this.denominations.setEnabled(status);
-        this.moneyLabel.setVisible(status);
+        customconfirmcash.setVisible(status);
+        customconfirmcash.setEnabled(status);
+        denominations.setVisible(status);
+        denominations.setEnabled(status);
+        moneyLabel.setVisible(status);
         
     }
 
@@ -1234,15 +1265,15 @@ public class VendingMachineView{
 
     public void replenishChangeState(boolean status){ // need javadoc
 
-        this.replenishAmount.setVisible(status);
-        this.replenishAmount.setEnabled(status);
-        this.replenishChangeConfirm.setVisible(status);
-        this.replenishChangeConfirm.setEnabled(status);
-        this.denominations.setVisible(status);
-        this.denominations.setEnabled(status);
-        
+        replenishAmount.setVisible(status);
+        replenishAmount.setEnabled(status);
+        replenishChangeConfirm.setVisible(status);
+        replenishChangeConfirm.setEnabled(status);
+        denominations.setVisible(status);
+        denominations.setEnabled(status);
         
     }
+
     /**
      * sets the status of the replenish item menu
      * @param status determines if they are visible/enabled or not (T/F) 
@@ -1250,12 +1281,12 @@ public class VendingMachineView{
 
     public void replenishItemState(boolean status){ // need javadoc
 
-        this.replenishAmount.setVisible(status);
-        this.replenishAmount.setEnabled(status);
-        this.replenishItemConfirm.setVisible(status);
-        this.replenishItemConfirm.setEnabled(status);
-        this.items.setVisible(status); 
-        this.items.setEnabled(status); 
+        replenishAmount.setVisible(status);
+        replenishAmount.setEnabled(status);
+        replenishItemConfirm.setVisible(status);
+        replenishItemConfirm.setEnabled(status);
+        items.setVisible(status); 
+        items.setEnabled(status); 
 
         
 
@@ -1267,12 +1298,12 @@ public class VendingMachineView{
 
     public void setPriceState(boolean status){ // need javadoc
 
-        this.replenishAmount.setVisible(status);
-        this.replenishAmount.setEnabled(status);
-        this.setPriceConfirm.setVisible(status);
-        this.setPriceConfirm.setEnabled(status);
-        this.items.setVisible(status); 
-        this.items.setEnabled(status); 
+        replenishAmount.setVisible(status);
+        replenishAmount.setEnabled(status);
+        setPriceConfirm.setVisible(status);
+        setPriceConfirm.setEnabled(status);
+        items.setVisible(status); 
+        items.setEnabled(status); 
         
         
     }
@@ -1283,16 +1314,16 @@ public class VendingMachineView{
      */
     public void itemMaintenanceState (boolean status){
         
-        this.itemMaintenance.setEnabled(status);
-        this.itemMaintenance.setVisible(status);
+        itemMaintenance.setEnabled(status);
+        itemMaintenance.setVisible(status);
 
     }
     /**
      * sets the state for the text field to submit items in
      */
     public void itemSelectState (boolean status){
-        this.itemSelect.setEnabled(status);
-        this.itemSelect.setVisible(status);
+        itemSelect.setEnabled(status);
+        itemSelect.setVisible(status);
     }
     /**
      * sets the status of the select item menu
@@ -1301,13 +1332,13 @@ public class VendingMachineView{
     
     public void selectItemState (boolean status){
 
-        this.chooseItemLabel.setVisible(status);
-        this.itemListScrollPane.setVisible(status);
-        this.itemSelect.setVisible(status);
-        this.itemSelect.setEnabled(status);
-        this.confirmItem.setVisible(status);
-        this.confirmItem.setEnabled(status);
-        this.moneyLabel.setVisible(status);
+        chooseItemLabel.setVisible(status);
+        itemListScrollPane.setVisible(status);
+        itemSelect.setVisible(status);
+        itemSelect.setEnabled(status);
+        confirmItem.setVisible(status);
+        confirmItem.setEnabled(status);
+        moneyLabel.setVisible(status);
 
     }
     /**
@@ -1315,10 +1346,10 @@ public class VendingMachineView{
      */
 
     public void transacDisplayState (boolean status){
-        this.transacListArea.setVisible (status);
-        this.transacListArea.setEnabled (status);
-        this.endTransactionDisplay.setVisible(status);
-        this.endTransactionDisplay.setEnabled(status);
+        transacListArea.setVisible (status);
+        transacListArea.setEnabled (status);
+        endTransactionDisplay.setVisible(status);
+        endTransactionDisplay.setEnabled(status);
     }
     /**
      * sets the status of the item list display
@@ -1327,20 +1358,20 @@ public class VendingMachineView{
 
     public void backButtonsState(boolean status){
 
-        this.endChangeDisplay.setVisible(status);
-        this.endChangeDisplay.setEnabled(status);
-        this.endItemDisplay.setVisible(status);
-        this.endItemDisplay.setEnabled(status);
-        this.endTransactionDisplay.setVisible(status);
-        this.endTransactionDisplay.setEnabled(status);
+        endChangeDisplay.setVisible(status);
+        endChangeDisplay.setEnabled(status);
+        endItemDisplay.setVisible(status);
+        endItemDisplay.setEnabled(status);
+        endTransactionDisplay.setVisible(status);
+        endTransactionDisplay.setEnabled(status);
 
     }
 
     public void displaynewItemListState(boolean status){
 
-        this.itemListScrollPane.setVisible(status);
-        this.endItemDisplay.setVisible(status);
-        this.endItemDisplay.setEnabled(status);
+        itemListScrollPane.setVisible(status);
+        endItemDisplay.setVisible(status);
+        endItemDisplay.setEnabled(status);
 
     }
 
@@ -1351,16 +1382,16 @@ public class VendingMachineView{
 
     public void displaynewChangeListState(boolean status){
 
-        this.changeListScrollPane.setVisible(status);
-        this.endChangeDisplay.setVisible(status);
-        this.endChangeDisplay.setEnabled(status);
+        changeListScrollPane.setVisible(status);
+        endChangeDisplay.setVisible(status);
+        endChangeDisplay.setEnabled(status);
         
     }
 
     public void specialVendItemSubmitState (boolean status){
-        this.itemSelect.setVisible(status);
-        this.itemSelect.setEnabled(status);
-        this.itemListScrollPane.setVisible(status);
+        itemSelect.setVisible(status);
+        itemSelect.setEnabled(status);
+        itemListScrollPane.setVisible(status);
     }
 
     /**
@@ -1369,11 +1400,11 @@ public class VendingMachineView{
      */
     public void chooseSinkerState(boolean status){
         
+        addSinker.setVisible(status);
+        addSinker.setEnabled(status);
+        submitSinker.setVisible(status); 
+        submitSinker.setEnabled(status); 
         
-        this.submitSinker.setVisible(status); 
-        this.submitSinker.setEnabled(status); 
-        
-
     }
     
     /**
@@ -1382,12 +1413,9 @@ public class VendingMachineView{
      */
     public void chooseTeaBaseState(boolean status){
         
-        this.submitTeaBase.setVisible(status); 
-        this.submitTeaBase.setEnabled(status);
-        this.itemSelect.setText(""); 
-
-        // jtextfield
-        
+        submitTeaBase.setVisible(status); 
+        submitTeaBase.setEnabled(status);
+        itemSelect.setText(""); 
     
         
     }
@@ -1398,11 +1426,10 @@ public class VendingMachineView{
     public void chooseFlavoringState(boolean status){
 
 
-        this.submitFlavoring.setVisible(status); 
-        this.submitFlavoring.setEnabled(status); 
-        this.itemSelect.setText(""); 
-         // jtextfield  
-        this.itemListScrollPane.setVisible(status);
+        submitFlavoring.setVisible(status); 
+        submitFlavoring.setEnabled(status); 
+        itemSelect.setText(""); 
+        itemListScrollPane.setVisible(status);
 
     }
     /**
@@ -1411,13 +1438,13 @@ public class VendingMachineView{
      */
     public void chooseMilkState(boolean status){
 
-        this.submitMilk.setVisible(status); 
-        this.submitMilk.setEnabled(status); 
-        this.itemSelect.setText(""); 
-        this.itemSelect.setVisible(status);
-        this.itemSelect.setEnabled(status);
+        submitMilk.setVisible(status); 
+        submitMilk.setEnabled(status); 
+        itemSelect.setText(""); 
+        itemSelect.setVisible(status);
+        itemSelect.setEnabled(status);
        // jtextfield
-        this.itemListScrollPane.setVisible(status);
+        itemListScrollPane.setVisible(status);
 
     }
 
@@ -1426,18 +1453,36 @@ public class VendingMachineView{
      */
     public void customizeProductState(boolean status){
         
-        
-        this.custominsertcash.setEnabled(status); 
-        this.custominsertcash.setVisible(status);
-        this.cancelTransaction.setEnabled(status);
-        this.cancelTransaction.setVisible(status);
-        this.proceedTransaction.setEnabled(status);
-        this.proceedTransaction.setVisible(status);
-        this.customizedPrice.setVisible(status);
-        this.customizedCalories.setVisible(status);
+        vendingMenuLabel.setVisible(status);
+        custominsertcash.setEnabled(status); 
+        custominsertcash.setVisible(status);
+        cancelTransaction.setEnabled(status);
+        cancelTransaction.setVisible(status);
+        proceedTransaction.setEnabled(status);
+        proceedTransaction.setVisible(status);
+        customizedPrice.setVisible(status);
+        customizedCalories.setVisible(status);
         
     }
 
+        /**
+     * sets the state for the submit sinker button
+     */
+
+    public void submitSinkerState(boolean status){
+        
+        submitSinker.setVisible(status);
+        submitSinker.setEnabled(status);
+        
+    }
+
+
+    public void addSinkerState(boolean status){
+        
+        addSinker.setVisible(status);
+        addSinker.setEnabled(status);
+        
+    }
 
 
 
@@ -1445,25 +1490,25 @@ public class VendingMachineView{
      * gets the name written in the item submit textfield
      */
     public String getNameTF(){
-        return this.iName.getText();
+        return iName.getText();
     }
     /**
      * gets the price written in the item submit textfield
      */
     public String getPriceTF(){
-        return this.iPrice.getText();
+        return iPrice.getText();
     }
     /**
      * gets the quanitity written in the item submit textfield
      */
     public String getQuantityTF(){
-        return this.iQuantity.getText();
+        return iQuantity.getText();
     }
     /**
      * gets the calories written in the item submit textfield
      */
     public String getCaloriesTF(){
-        return this.iCalories.getText();
+        return iCalories.getText();
     }
     
     /**
@@ -1471,7 +1516,7 @@ public class VendingMachineView{
      */
     public String getReplenishAmountTF(){ // unadded to UML
 
-        return this.replenishAmount.getText();
+        return replenishAmount.getText();
 
     }
 
@@ -1481,11 +1526,11 @@ public class VendingMachineView{
      */
     public void clearItemTF (){
         
-        this.iName.setText("");
-        this.iPrice.setText("");
-        this.iQuantity.setText("");
-        this.iCalories.setText("");
-        this.iCategory.setText("");
+        iName.setText("");
+        iPrice.setText("");
+        iQuantity.setText("");
+        iCalories.setText("");
+        iCategory.setText("");
   
 
     }
@@ -1494,7 +1539,7 @@ public class VendingMachineView{
      */
     public void setMoneyLabel(String text){
 
-        this.moneyLabel.setText(text);
+        moneyLabel.setText(text);
 
     }
     /**
@@ -1503,13 +1548,13 @@ public class VendingMachineView{
 
     public String getItemTF(){
 
-        return this.itemSelect.getText();
+        return itemSelect.getText();
 
     }
 
     public String getItemMaintenanceTF(){
 
-        return this.itemMaintenance.getText();
+        return itemMaintenance.getText();
 
     }
     
@@ -1531,7 +1576,7 @@ public class VendingMachineView{
 
     public String getDenominations(){
          
-        String value = String.valueOf(this.denominations.getSelectedItem());
+        String value = String.valueOf(denominations.getSelectedItem());
         
         return value;
         
@@ -1541,7 +1586,7 @@ public class VendingMachineView{
      */
     public String getCategoryDrop(){
          
-        String value = String.valueOf(this.category.getSelectedItem());
+        String value = String.valueOf(category.getSelectedItem());
         
         return value;
         
@@ -1550,7 +1595,7 @@ public class VendingMachineView{
 
     public String getItem(){
          
-        String value = String.valueOf(this.items.getSelectedItem());
+        String value = String.valueOf(items.getSelectedItem());
         
         return value;
         
@@ -1564,25 +1609,50 @@ public class VendingMachineView{
      */
 
     public void dispensePane(int change, boolean state, String itemName){
+
         if (state == true){
         JOptionPane.showMessageDialog(mainFrame, itemName +" Dispensed!\n Change: " + change);  
         }
         else if (state == false){
         JOptionPane.showMessageDialog(mainFrame,"There is not enough change inside the vending machine.\n Cancelling Transaction...\n Returned: " +change);
         }
+
+
     }
+
+    /**
+     * 
+     * @param change
+     * @param state
+     */
+    public void dispenseCustomizedPane(int change, boolean state){
+
+        if (state == true){
+        JOptionPane.showMessageDialog(mainFrame, "Milk Tea Dispensed!\n Change: " + change);  
+        }
+        else if (state == false){
+        JOptionPane.showMessageDialog(mainFrame,"There is not enough change inside the vending machine.\n Cancelling Transaction...\n Returned: " + change); 
+        }
+
+
+    }
+
     /**
      * Shows a popup dialogue box when there is an error input
+     * @param result
      */
     public void errorMessagePane(boolean result){
         if (result == false){
             JOptionPane.showMessageDialog(mainFrame, "Add Failed");
         }
     }
+
     /**
      * Shows a popup dialogue box when collecting payment from vending machine
+     * @param total
      */
     public void collectPaymentPane (int total){
+
         if (total > 0){
             JOptionPane.showMessageDialog(mainFrame, "Collected P" +total);
         }
@@ -1590,9 +1660,26 @@ public class VendingMachineView{
             JOptionPane.showMessageDialog(mainFrame, "There is no money in the vending machine yet.");
         }
     }
+
+    /**
+     * Shows a popup dialogue box when adding an item for the customizable milk tea
+     * @param item
+     */
+
+    public void addCategoryPane (String item){
+
+    JOptionPane.showMessageDialog(mainFrame, "Added " + item);
+
+    }
+
+    /**
+     * Shows a popup dialogue box when cancelling transaction from vending machine
+     * @param total
+     */
+
     public void cancelTransactionPane (int total){
 
-        JOptionPane.showMessageDialog(mainFrame, "Transaction cancelled. \n" +total+ "Returned.");
+        JOptionPane.showMessageDialog(mainFrame, "Transaction cancelled. \n" +total+ " Returned.");
         
     }
     /**
@@ -1605,7 +1692,7 @@ public class VendingMachineView{
         DefaultTableModel tableModel = (DefaultTableModel) itemListTable.getModel();
 
         
-        Object[][] data = new Object[ItemList.size()][5];
+        Object[][] data = new Object[ItemList.size()][6];
 
         for (int i = 0; i < ItemList.size(); i++) {
         
@@ -1613,17 +1700,19 @@ public class VendingMachineView{
             
 
         int quantity = ItemList.get(i).size();
-        data[i][0] = item.getName();
-        data[i][1] = item.getPrice();
-        data[i][2] = quantity;
-        data[i][3] = item.getCalories();
-        data[i][4] = item.getCategory();
+
+        data[i][0] = i + 1;
+        data[i][1] = item.getName();
+        data[i][2] = item.getPrice();
+        data[i][3] = quantity;
+        data[i][4] = item.getCalories();
+        data[i][5] = item.getCategory();
 
         
     }
 
 
-        tableModel.setDataVector(data, new String[]{"Item Name", "Price", "Quantity", "Calories", "Category"});
+        tableModel.setDataVector(data, new String[]{"Item Number", "Item Name", "Price", "Quantity", "Calories", "Category"});
 
     }
 
@@ -1632,26 +1721,27 @@ public class VendingMachineView{
         DefaultTableModel tableModel = (DefaultTableModel) itemListTable.getModel();
 
         
-        Object[][] data = new Object[ItemList.size()][4];
+        Object[][] data = new Object[ItemList.size()][5];
 
         for (int i = 0; i < ItemList.size(); i++) {
         
         Item item = ItemList.get(i).get(0);
-
+        
         int quantity = ItemList.get(i).size();
 
-        data[i][0] = item.getName();
-        data[i][1] = item.getPrice();
-        data[i][2] = quantity;
-        data[i][3] = item.getCalories();
-
+        data[i][0] = i + 1;
+        data[i][1] = item.getName();
+        data[i][2] = item.getPrice();
+        data[i][3] = quantity;
+        data[i][4] = item.getCalories();
+        
         
         
     }
 
     
 
-        tableModel.setDataVector(data, new String[]{"Item Name", "Price", "Quantity", "Calories"});
+        tableModel.setDataVector(data, new String[]{"Item Number", "Item Name", "Price", "Quantity", "Calories"});
 
     }
 
@@ -1687,18 +1777,33 @@ public class VendingMachineView{
     /**
      * sets the text inside the transaction list display
      */
+
     public void setTransactionArea (String setText){
-        this.transacListArea.setText(setText);
+        transacListArea.setText(setText);
     }
+
     public void setCustomizedPrice (String text){
-        this.customizedPrice.setText(text);
+        customizedPrice.setText(text);
     }
 
     public void setCustomizedCalories (String text){
 
-        this.customizedCalories.setText(text);
+        customizedCalories.setText(text);
 
     }
+
+    public void setVendingMenuLabel (String text){
+
+        vendingMenuLabel.setText(text);
+
+    }
+
+    public void setMaintenanceMenuLabel(String text){
+
+        maintenanceMenuLabel.setText(text);
+
+    }
+
     /**
      * dispenses for customized order
      */
@@ -1709,6 +1814,7 @@ public class VendingMachineView{
         System.out.println(processes);
         JOptionPane.showMessageDialog(mainFrame, processes);
         
+
     }
 
 public static void main (String[] args) {   
@@ -1718,6 +1824,7 @@ public static void main (String[] args) {
 
     VendingMachineController vController = new VendingMachineController(newMachine, newModel);
     
+
     
 }
 
