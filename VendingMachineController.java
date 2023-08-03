@@ -120,7 +120,7 @@ public class VendingMachineController {
             
             VendingView.clearItemTF();
            
-            if(VendingModel.getItemList().size() >= 2){ // change this back to 8
+            if(VendingModel.getItemList().size() >= 8){ 
 
             VendingView.SubmitItemStatus(true); 
 
@@ -150,7 +150,7 @@ public class VendingMachineController {
 
             VendingView.clearItemTF();
 
-             if(VendingModel.getItemList().size() >= 2){ // change this back to 8
+             if(VendingModel.getItemList().size() >= 8){
                 
             VendingView.SubmitItemStatus(true);
              }
@@ -842,9 +842,14 @@ public class VendingMachineController {
         public void actionPerformed (ActionEvent a){
 
            VendingView.createRegAgainStatus(false);
+           VendingModel.setVendingMachineNull(VendingModel.getVendingMachine());
+
+           VendingModel.getItemList().clear();
+           VendingModel.getChosenItems().clear();
+           
            VendingModel.setRegularVendingMachine();
            VendingView.RegularItemCreate(true);
-           
+
            
         }
     });
@@ -858,12 +863,19 @@ public class VendingMachineController {
            
         }
     });
-
-         this.VendingView.setSpecYesBtn(new ActionListener (){
+         
+        this.VendingView.setSpecYesBtn(new ActionListener (){
         @Override
         public void actionPerformed (ActionEvent a){
 
+
            VendingView.createSpecAgainStatus(false);
+           VendingModel.setVendingMachineNull(VendingModel.getVendingMachine());
+
+           VendingModel.getItemList().clear();
+           VendingModel.getChosenItems().clear();
+        
+           
            VendingModel.setSpecialVendingMachine();
            VendingView.SpecialItemCreate(true);
            
