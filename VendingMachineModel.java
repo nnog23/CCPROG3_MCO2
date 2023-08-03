@@ -92,7 +92,7 @@ public boolean addRegItem(String item_name, int item_price, int item_quantity, f
  * @param item_quantity is how many instances of the item there would be
  * @param item_calories is its calorie value
  * @param item_category is the item's category
- * @param item_independence determines if the item is sellable in the regular vending machine
+ * 
  */
 public void addSpecItem(String item_name, int item_price, int item_quantity, float item_calories, String item_category){
 
@@ -153,6 +153,7 @@ public RegularVendingMachine getVendingMachine(){
 }
 /**
  * sets the instance of a vending machine to null 
+ * @param vendingMachine is the instance of the vending machine
  */
 public void setVendingMachineNull(RegularVendingMachine vendingMachine){
 
@@ -189,7 +190,7 @@ public void replenishChange (int denom, int nAmount){
 
 /**
  * Replenishes the an item's quantity
- * @param select is the index to use to search for the item
+ * @param name is the name of the item
  * @param amount is the amount of items to replenish
  * 
  */
@@ -218,8 +219,10 @@ public void replenishQuantity(String name, int amount){
 }
 /**
  * sets the price for the items
+ * @param name is the name of the price
+ * @param price is the new price for the item
  */
-public void setItemPrice(String name, int price){ // unadded to UML
+public void setItemPrice(String name, int price){ 
 
   int i = 0;
   int j = 0;
