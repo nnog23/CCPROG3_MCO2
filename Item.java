@@ -14,7 +14,12 @@ public class Item {
   private float calories;
   private String category;
 
-  
+/**
+ * A constructor that takes in the item name, item price, and item calories to create a regular item.
+ * @param name is the name of the item
+ * @param price is the price of the item
+ * @param calories is the number of calories of the item
+ */
 public Item(String name, int price, float calories){
 
   this.name = name;
@@ -23,6 +28,13 @@ public Item(String name, int price, float calories){
 
 }
 
+/**
+ * A constructor that takes in the item name, item price, item calories, and item category to create a special item.
+ * @param name is the name of the item
+ * @param price is the price of the item
+ * @param calories is the number of calories of the item
+ * @param category is the category of the item.
+ */
 public Item(String name, int price, float calories, String category){
 
   this.name = name;
@@ -63,7 +75,10 @@ public float getCalories(){
 
 }
 
-
+/**
+ * Gets the item's category
+ * @return the category of the item
+ */
 public String getCategory(){
 
   return category;
