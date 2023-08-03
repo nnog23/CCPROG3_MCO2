@@ -10,6 +10,11 @@ import java.util.ArrayList;
 
 public class Transaction {
     
+    /**
+     * An empty constructor for transaction just to create an instance
+     * 
+     */
+
     public Transaction (){
         
     }
@@ -17,6 +22,7 @@ public class Transaction {
     /**
      * Displays all the items bought, the quantity in which they were purchased, and the total earnings
      * @param ItemList is the arraylist of Items
+     * @param totalPurchases is the arraylist of the total purchases per item
      * @return string of transactions
      */
     public String TransactionList(ArrayList <ArrayList<Item>> ItemList, ArrayList<Integer> totalPurchases){
