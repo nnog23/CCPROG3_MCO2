@@ -13,7 +13,6 @@ public class Item {
 
   private float calories;
   private String category;
-  private String process;
 
   
 public Item(String name, int price, float calories){
@@ -69,13 +68,6 @@ public String getCategory(){
 
   return category;
 
-}
-
-
-public String getProcess(){
-
-  return process;
-  
 }
 
 
