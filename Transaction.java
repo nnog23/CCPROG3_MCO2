@@ -17,6 +17,7 @@ public class Transaction {
     /**
      * Displays all the items bought, the quantity in which they were purchased, and the total earnings
      * @param ItemList is the arraylist of Items
+     * @return string of transactions
      */
     public String TransactionList(ArrayList <ArrayList<Item>> ItemList, ArrayList<Integer> totalPurchases){
         int i, totalValue = 0;
@@ -24,6 +25,7 @@ public class Transaction {
         int nPurchase = 0;
         System.out.println ("List of Transactions");
         String totalDisplay = "";
+        
         for (i = 0; i < nItem; i++){
 
             if (totalPurchases.get(i) > 0){
@@ -34,7 +36,7 @@ public class Transaction {
             }
             
         }
-
+        
         if (nPurchase > 0){
             totalDisplay += "\nTotal: P" +totalValue;  
             return totalDisplay;
