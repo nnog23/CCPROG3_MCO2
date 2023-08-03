@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 
 /**
- * class that serves as the view for the ui
+ * class that serves as the view for the GUI
  */
 
 public class VendingMachineView{
@@ -77,10 +77,6 @@ public class VendingMachineView{
         
         
         mainFrame = new JFrame ("Vending Machine Factory");
-        
-	 //   mainFrame.setSize(375,500);
-
-       // mainFrame.setLayout(new BoxLayout(mainFrame, BoxLayout.Y_AXIS));
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -555,11 +551,11 @@ public class VendingMachineView{
         buttonpanel.add(transacListArea);
         buttonpanel.add(endTransactionDisplay);
         buttonpanel.add(endMaintenance);
-    
+        
         // CREATE AGAIN MENU
         
-        CreateRegAgainMenu = new JLabel("<html>You have an existing regular vending machine, do you want to create again? XD <br/></html>");
-        CreateSpecAgainMenu = new JLabel("<html>You have an existing special vending machine, do you want to create again? XD <br/></html>");
+        CreateRegAgainMenu = new JLabel("<html>You have an existing vending machine, do you want to create again? XD <br/></html>");
+        CreateSpecAgainMenu = new JLabel("<html>You have an existing vending machine, do you want to create again? XD <br/></html>");
         regyes = new JButton("Yes");
         regno = new JButton("No");
         
@@ -1151,6 +1147,7 @@ public class VendingMachineView{
         endMaintenance.setVisible(status);
 
     }
+
     /**
      * sets the status of the create a regular vending machine again menu
      * @param status determines if they are visible/enabled or not (T/F) 
@@ -1248,6 +1245,11 @@ public class VendingMachineView{
         
     }
 
+    /**
+     * sets the status of the insert cash menu in customize product
+     * @param status determines if they are visible/enabled or not (T/F) 
+     */
+
     public void custominsertCashState(boolean status){
         
         customconfirmcash.setVisible(status);
@@ -1343,6 +1345,7 @@ public class VendingMachineView{
     }
     /**
      * sets the status for the display transaction list
+     * @param status determines if they are visible/enabled or not (T/F)
      */
 
     public void transacDisplayState (boolean status){
@@ -1351,8 +1354,9 @@ public class VendingMachineView{
         endTransactionDisplay.setVisible(status);
         endTransactionDisplay.setEnabled(status);
     }
+
     /**
-     * sets the status of the item list display
+     * sets the status of the back buttons
      * @param status determines if they are visible/enabled or not (T/F) 
      */
 
@@ -1366,6 +1370,12 @@ public class VendingMachineView{
         endTransactionDisplay.setEnabled(status);
 
     }
+
+
+    /**
+     * sets the status of the item list display
+     * @param status determines if they are visible/enabled or not (T/F) 
+     */
 
     public void displaynewItemListState(boolean status){
 
@@ -1388,6 +1398,11 @@ public class VendingMachineView{
         
     }
 
+    /**
+     * sets the status of the new venditemsubmit for special items
+     * @param status determines if they are visible/enabled or not (T/F) 
+     */
+
     public void specialVendItemSubmitState (boolean status){
         itemSelect.setVisible(status);
         itemSelect.setEnabled(status);
@@ -1395,7 +1410,7 @@ public class VendingMachineView{
     }
 
     /**
-     * sets the status of the buttons, drop down box, and display box for sinkers
+     * sets the status of the buttons, and display box for sinkers
      * @param status determines if they are visible/enabled or not (T/F) 
      */
     public void chooseSinkerState(boolean status){
@@ -1408,7 +1423,7 @@ public class VendingMachineView{
     }
     
     /**
-     * sets the status of the buttons, drop down box, and display box for tea base
+     * sets the status of the buttons, and display box for tea base
      * @param status determines if they are visible/enabled or not (T/F) 
      */
     public void chooseTeaBaseState(boolean status){
@@ -1420,7 +1435,7 @@ public class VendingMachineView{
         
     }
     /**
-     * sets the status of the buttons, drop down box, and display box for flavorings
+     * sets the status of the buttons, and display box for flavorings
      * @param status determines if they are visible/enabled or not (T/F) 
      */
     public void chooseFlavoringState(boolean status){
@@ -1433,7 +1448,7 @@ public class VendingMachineView{
 
     }
     /**
-     * sets the status of the buttons, drop down box, and display box for milk
+     * sets the status of the buttons, and display box for milk
      * @param status determines if they are visible/enabled or not (T/F) 
      */
     public void chooseMilkState(boolean status){
@@ -1544,6 +1559,7 @@ public class VendingMachineView{
     }
     /**
      * gets the written selected item name in the select item menu
+     * @return the selected item name
      */
 
     public String getItemTF(){
@@ -1552,12 +1568,22 @@ public class VendingMachineView{
 
     }
 
+    /**
+     * gets the written selected maintenance value in the select item menu
+     * @return the selected maintenance value
+     */
+
     public String getItemMaintenanceTF(){
 
         return itemMaintenance.getText();
 
     }
     
+    /**
+     * updates the item combo box
+     *
+     */
+
     public void updateItemsComboBox(String[] itemNames) {
 
         items.removeAllItems();
@@ -1572,6 +1598,7 @@ public class VendingMachineView{
     
     /**
      * gets the selected denomination value from the drop down menu
+     * @return the denomination value
      */
 
     public String getDenominations(){
@@ -1583,6 +1610,8 @@ public class VendingMachineView{
     }
     /**
      * gets the selected category from the drop down menu
+     * 
+     * @return the category value
      */
     public String getCategoryDrop(){
          
@@ -1592,7 +1621,12 @@ public class VendingMachineView{
         
     }
 
-
+    
+    /**
+     * gets the selected item from the drop down menu
+     * 
+     * @return the selected item
+     */
     public String getItem(){
          
         String value = String.valueOf(items.getSelectedItem());
@@ -1621,9 +1655,9 @@ public class VendingMachineView{
     }
 
     /**
-     * 
-     * @param change
-     * @param state
+     * creates an option pane that dispenses the customized product
+     * @param change is the amount of change returned
+     * @param state determines if the transaction was successful
      */
     public void dispenseCustomizedPane(int change, boolean state){
 
@@ -1683,7 +1717,7 @@ public class VendingMachineView{
         
     }
     /**
-     * updates the display table that contains the item list
+     * updates the display table that contains the regular item list
      * @param ItemList is an arraylist of Item
      */
 
@@ -1715,7 +1749,11 @@ public class VendingMachineView{
         tableModel.setDataVector(data, new String[]{"Item Number", "Item Name", "Price", "Quantity", "Calories", "Category"});
 
     }
-
+    /**
+     * updates the display table that contains the special item list
+     * 
+     * @param ItemList is an arraylist of item
+     */
         public void updateRegularItemListTable(ArrayList <ArrayList<Item>> ItemList) {
 
         DefaultTableModel tableModel = (DefaultTableModel) itemListTable.getModel();
@@ -1776,15 +1814,26 @@ public class VendingMachineView{
 
     /**
      * sets the text inside the transaction list display
+     * @param setText is the new text 
      */
 
     public void setTransactionArea (String setText){
         transacListArea.setText(setText);
     }
 
+    /**
+     * sets the text of the total price label
+     * @param text is the new text 
+     */
+
     public void setCustomizedPrice (String text){
         customizedPrice.setText(text);
     }
+
+    /**
+     * sets the text of the total calories label
+     * @param text is the new text 
+     */
 
     public void setCustomizedCalories (String text){
 
@@ -1792,11 +1841,21 @@ public class VendingMachineView{
 
     }
 
+    /**
+     * sets the text of the vending menu label
+     * @param text is the new text 
+     */
+
     public void setVendingMenuLabel (String text){
 
         vendingMenuLabel.setText(text);
 
     }
+
+    /**
+     * sets the text of the maintenance menu label
+     * @param text is the new text 
+     */
 
     public void setMaintenanceMenuLabel(String text){
 
@@ -1806,26 +1865,14 @@ public class VendingMachineView{
 
     /**
      * dispenses for customized order
+     * @param processes is the string that holds all the processes for the customizable product
      */
 
     public void processDispensePane(String processes){
         
-        
-        System.out.println(processes);
         JOptionPane.showMessageDialog(mainFrame, processes);
-        
 
     }
 
-public static void main (String[] args) {   
-    
-    VendingMachineView newMachine = new VendingMachineView();
-    VendingMachineModel newModel = new VendingMachineModel();
-
-    VendingMachineController vController = new VendingMachineController(newMachine, newModel);
-    
-
-    
-}
 
 }
