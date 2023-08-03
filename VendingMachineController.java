@@ -104,27 +104,37 @@ public class VendingMachineController {
      this.VendingView.setRegSubmitListener(new ActionListener() {
         @Override
         public void actionPerformed (ActionEvent a){
-
-            // do while VendingMachineModel.getItemList().size() < 8
             
             VendingView.SubmitItemStatus(false);
             
             try{
+
             String name = VendingView.getNameTF();
             int price = Integer.parseInt(VendingView.getPriceTF());
             int quantity = Integer.parseInt(VendingView.getQuantityTF());
             float calories = Float.parseFloat(VendingView.getCaloriesTF());
             boolean result;
 
+            if(quantity >= 10){
+
             result = VendingModel.addRegItem(name, price, quantity, calories);
             
             VendingView.clearItemTF();
+
+            
            
             if(VendingModel.getItemList().size() >= 8){ 
 
             VendingView.SubmitItemStatus(true); 
 
             }
+
+        } else{
+
+            VendingView.clearItemTF();
+            VendingView.errorMessagePane(false);
+
+        }
 
         }catch(NumberFormatException e){
 
@@ -145,16 +155,23 @@ public class VendingMachineController {
             int quantity = Integer.parseInt(VendingView.getQuantityTF());
             float calories = Float.parseFloat(VendingView.getCaloriesTF());
             String category = (String)VendingView.getCategoryDrop();
-
-            VendingModel.addSpecItem(name, price, quantity, calories, category);
-
-            VendingView.clearItemTF();
+            
+            if(quantity >= 10){
+                VendingModel.addSpecItem(name, price, quantity, calories, category);
+                VendingView.clearItemTF();
 
              if(VendingModel.getItemList().size() >= 8){
                 
-            VendingView.SubmitItemStatus(true);
+                VendingView.SubmitItemStatus(true);
              }
-             
+
+            }else{
+                
+                VendingView.clearItemTF();
+                VendingView.errorMessagePane(false);
+
+            }
+
             }
             catch (NumberFormatException e){
                 VendingView.errorMessagePane(false);
