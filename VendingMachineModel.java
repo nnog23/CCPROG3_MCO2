@@ -39,6 +39,7 @@ public VendingMachineModel(){
 
 /**
  * returns the array of bill denominations the owner would recieve from the machine
+ * @return ownerPaymentList denonomination array
  */
 }
 public int[] getOwnerPaymentList(){
@@ -46,6 +47,7 @@ public int[] getOwnerPaymentList(){
 }
 /**
  * gets and returns the itemlist
+ * @return ItemList 2d array list of item
  */
 public ArrayList <ArrayList<Item>> getItemList(){
 
@@ -54,6 +56,7 @@ public ArrayList <ArrayList<Item>> getItemList(){
 }
 /**
  * gets and returns the changelist
+ * @return array of change denom
  */
 public int[] getChangeList(){
 
@@ -62,6 +65,7 @@ public int[] getChangeList(){
 }
 /**
  * gets and returns the paymentlist
+ * @return array of payment denom
  */
 public int[] getPaymentList(){
 
@@ -70,6 +74,7 @@ public int[] getPaymentList(){
 }
 /**
  * gets and returns the denomination list
+ * @return array of denominations
  */
 public int[] getDenomList(){
 
@@ -79,6 +84,7 @@ public int[] getDenomList(){
 }
 /**
  * gets the arraylist of chosen items for customized product
+ * @return arraylist of chosen items
  */
 
 public ArrayList <Integer> getChosenItems(){
@@ -93,6 +99,7 @@ public ArrayList <Integer> getChosenItems(){
  * @param item_price is the price for it to be sold
  * @param item_quantity is how many instances of the item there would be
  * @param item_calories is its calorie value
+ * @return true
  */
 public boolean addRegItem(String item_name, int item_price, int item_quantity, float item_calories){
   
@@ -150,12 +157,14 @@ public void addSpecItem(String item_name, int item_price, int item_quantity, flo
 
 /**
  * gets the array of currentPurchase, which holds the number of items purchased in a session
+ * @return int arraylist of current purchases
  */
 public ArrayList<Integer> getCurrentPurchases(){
   return this.currentPurchase;
 }
 /**
  * gets the array of totalPurchase, which holds the number of items purchased overall
+ * @return arraylist of total purchase
  */
 public ArrayList<Integer> getTotalPurchases(){
   return this.totalPurchase;
@@ -179,6 +188,7 @@ public void setSpecialVendingMachine(){
 }
 /**
  * gets the RegularVendingMachine
+ * @return instance of vending machine
  */
 public RegularVendingMachine getVendingMachine(){
 
@@ -276,6 +286,7 @@ if(name.equals(ItemList.get(i).get(0).getName())){
 /**
      * returns the summation of an array
      * @param value[] is the array to be summationed
+     * @return total value inside int array
      */
 
     public int totalAmount (int[] value){
@@ -294,6 +305,7 @@ if(name.equals(ItemList.get(i).get(0).getName())){
     /**
      * verifies if the vending machine has enough change for the transaction
      * @param amount is the amount of money paid
+     * @return t/f if enough change
      */
 
 
@@ -330,6 +342,7 @@ if(name.equals(ItemList.get(i).get(0).getName())){
      /**
      * returns the payment the user has inputted if the transaction is cancelled
      * @param paymentList[] is the array of the payment from the customer
+     * @return original amount inserted
      */
 
   public int cancelTransaction (int [] paymentList){
@@ -363,23 +376,24 @@ public void dispenseItem(int select){
   int i;
 
   
-  ItemList.get(select - 1).remove(ItemList.size() - 1);
+  ItemList.get(select).remove(ItemList.size() - 1);
   
-  Integer value = this.currentPurchase.get(select-1);
-  Integer value2 = this.totalPurchase.get(select-1);
+  Integer value = this.currentPurchase.get(select);
+  Integer value2 = this.totalPurchase.get(select);
   value = value + 1;
   value2 = value2 + 1;
   
-  this.currentPurchase.set(select-1, value);
-  this.totalPurchase.set(select-1, value2);
+  this.currentPurchase.set(select, value);
+  this.totalPurchase.set(select, value2);
 
-  System.out.println(currentPurchase.get(select-1));
-  for (i = 0; i < 8; i++){
+  System.out.println(currentPurchase.get(select));
+
+  for (i = 0; i <= 8; i++){
       
       ownerPaymentList[i] = paymentList[i];
 
     }
-  for (i = 0; i < 8; i++){
+  for (i = 0; i <= 8; i++){
       
       paymentList[i] = 0;
 
@@ -388,6 +402,10 @@ public void dispenseItem(int select){
   
 }
 
+/**
+ * takes a bill and puts it in the current payment array corresponding to its denomination
+ * @param payment is the inserted bill
+ */
 public void insertCash(int payment){
 
   int i = 0;
@@ -410,6 +428,7 @@ public void insertCash(int payment){
   /**
      * returns the denomination array of change that the user will get after buying
      * @param amount is the change amount
+     * @return an array of denom for change
      */
 
      public int[] produceChange (int amount){
@@ -464,6 +483,7 @@ public void storePayment(int[] paymentList){
   /**
    * gets the list of item names
    * @param ItemList is the adjacency list of items
+   * @return an array of items
    */
   public String[] getItemNames(ArrayList <ArrayList<Item>> ItemList){
 
@@ -481,7 +501,10 @@ public void storePayment(int[] paymentList){
 
   }
 
- 
+ /**
+  * gets the transaction list
+  * @return an instance of transaction
+  */
   public Transaction getTransactionList(){
     
     return this.TransactionList;
@@ -490,6 +513,7 @@ public void storePayment(int[] paymentList){
 
 /**
  * dispenses the Customized product
+ * @return an array of strings with the processing commands
  */
   public String dispenseCustomizedProduct(){
 
@@ -501,40 +525,47 @@ public void storePayment(int[] paymentList){
     
     for(i = 0; i < ChosenItems.size(); i++){ // arraylist of chosen item integers
 
-          if(ItemList.get(ChosenItems.get(i) - 1).get(0).getCategory().equals("Sinker")){
+          System.out.println("ChosenItems: " + ChosenItems);
+          System.out.println("ItemList: " + ItemList);
 
-            processes += "Adding " + ItemList.get(ChosenItems.get(i) - 1).get(0).getName() + "...\n";
-            ItemList.get(i).remove(ItemList.size() - 1);
-            Integer value = this.totalPurchase.get(i); 
+          if(ItemList.get(ChosenItems.get(i)).get(0).getCategory().equals("Sinker")){
+
+            processes += "Adding " + ItemList.get(ChosenItems.get(i)).get(0).getName() + "...\n";
+           
+            Integer value = this.totalPurchase.get(ChosenItems.get(i)); 
             value = value + 1;
-            this.totalPurchase.set(i, value);
+            this.totalPurchase.set(ChosenItems.get(i), value);
 
-          }else if(ItemList.get(ChosenItems.get(i) - 1).get(0).getCategory().equals("Tea Base")){
+          }else if(ItemList.get(ChosenItems.get(i)).get(0).getCategory().equals("Tea Base")){
 
-            processes += "Brewing " + ItemList.get(ChosenItems.get(i) - 1).get(0).getName() + "...\n";
-            ItemList.get(i).remove(ItemList.size() - 1);
-            Integer value = this.totalPurchase.get(i); 
+            processes += "Brewing " + ItemList.get(ChosenItems.get(i)).get(0).getName() + "...\n";
+          
+            Integer value = this.totalPurchase.get(ChosenItems.get(i)); 
             value = value + 1;
-            this.totalPurchase.set(i, value);
+            this.totalPurchase.set(ChosenItems.get(i), value);
             
-          }else if(ItemList.get(ChosenItems.get(i) - 1).get(0).getCategory().equals("Flavoring")){
-            processes += "Mixing " + ItemList.get(ChosenItems.get(i) - 1).get(0).getName() + "...\n";
+          }else if(ItemList.get(ChosenItems.get(i)).get(0).getCategory().equals("Flavoring")){
+            processes += "Mixing " + ItemList.get(ChosenItems.get(i)).get(0).getName() + "...\n";
             //processes[i] += "Mixing... " + ChosenItems.get(i);
-            ItemList.get(i).remove(ItemList.size() - 1);
-            Integer value = this.totalPurchase.get(i); 
+            
+            Integer value = this.totalPurchase.get(ChosenItems.get(i)); 
             value = value + 1;
-            this.totalPurchase.set(i, value);
+            this.totalPurchase.set(ChosenItems.get(i), value);
 
-          }else if((ItemList.get(ChosenItems.get(i) - 1).get(0).getCategory().equals("Milk"))){
-            processes += "Pouring " + ItemList.get(ChosenItems.get(i) - 1).get(0).getName() + "...\n";
+          }else if((ItemList.get(ChosenItems.get(i)).get(0).getCategory().equals("Milk"))){
+            processes += "Pouring " + ItemList.get(ChosenItems.get(i)).get(0).getName() + "...\n";
             //processes[i] += "Pouring... " + ChosenItems.get(i);
-            ItemList.get(i).remove(ItemList.size() - 1);
-            Integer value = this.totalPurchase.get(i); 
+     
+            Integer value = this.totalPurchase.get(ChosenItems.get(i)); 
             value = value + 1;
-            this.totalPurchase.set(i, value);
+            this.totalPurchase.set(ChosenItems.get(i), value);
+
 
           }
+
           System.out.println(this.totalPurchase);
+
+          ItemList.get(ChosenItems.get(i)).remove(ItemList.get(ChosenItems.get(i)).size() - 1);
 
           // j = ItemList.size() - 1
 
@@ -547,6 +578,7 @@ public void storePayment(int[] paymentList){
   /**
    * computes and returns the total calories of the customized product
    * @param ChosenItems is an arraylist of the chosen items for customization
+   * @return total calories
    */
   public float computeCalories(ArrayList<Integer> ChosenItems){
 
@@ -557,7 +589,7 @@ public void storePayment(int[] paymentList){
     
     for(i = 0; i < ChosenItems.size(); i++){
       
-         calories += ItemList.get(ChosenItems.get(i) - 1).get(0).getCalories();
+         calories += ItemList.get(ChosenItems.get(i)).get(0).getCalories();
 
     }
   
@@ -568,6 +600,7 @@ public void storePayment(int[] paymentList){
   /**
    * computes and returns the total price of the customized item
    * @param ChosenItems is the arraylist of items chosen during customization
+   * @return total price
    */
     public int computePrice(ArrayList<Integer> ChosenItems){
 
@@ -576,7 +609,7 @@ public void storePayment(int[] paymentList){
     
     for(i = 0; i < ChosenItems.size(); i++){
       
-         price+= ItemList.get(ChosenItems.get(i) - 1).get(0).getPrice();
+         price += ItemList.get(ChosenItems.get(i)).get(0).getPrice();
 
     }
   
@@ -588,6 +621,7 @@ public void storePayment(int[] paymentList){
 /**
  * collects and totals the money stored in the vending machine and returns a whole value
  * @param ownerpaymentlist is the array of denominations
+ * @return an array for total denom amount
  */
   public int collectPayment(int [] ownerpaymentList){
   
@@ -595,7 +629,7 @@ public void storePayment(int[] paymentList){
   
     int total_payment = totalAmount(ownerpaymentList);
   
-    for (i = 0; i < 8; i++){
+    for (i = 0; i <= 8; i++){
   
       ownerpaymentList[i] = 0;
   
