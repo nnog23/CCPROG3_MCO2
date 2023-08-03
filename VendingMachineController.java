@@ -193,8 +193,18 @@ public class VendingMachineController {
             VendingView.VendingMenuStatus(true);
             VendingView.displaynewItemListState(true);
             VendingView.backButtonsState(false);
-            VendingView.updateRegularItemListTable(VendingModel.getItemList());
-            VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
+
+            if(VendingModel.getVendingMachine() instanceof SpecialVendingMachine){
+
+                VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+
+            }else{
+
+                VendingView.updateRegularItemListTable(VendingModel.getItemList());
+
+            }
+
+                VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
             
 
         }   
@@ -256,6 +266,9 @@ public class VendingMachineController {
             VendingView.FirstMenuStatus(true);
             int returnTotal = VendingModel.cancelTransaction(VendingModel.getPaymentList());
             VendingView.cancelTransactionPane(returnTotal);
+            VendingView.displaynewItemListState(false);
+            VendingModel.getChosenItems().clear();
+            
         }
     });
 
@@ -294,8 +307,7 @@ public class VendingMachineController {
                     int change = VendingModel.totalAmount(VendingModel.produceChange((VendingModel.totalAmount(VendingModel.getPaymentList()) - VendingModel.computePrice(VendingModel.getChosenItems()))));      
                     int i = 0, j = 0;
                     
-                    
-                    VendingView.setCustomizedPrice("Total price is: "+VendingModel.computePrice(VendingModel.getChosenItems()));
+
                     VendingModel.storePayment(VendingModel.getPaymentList());
                     
                     VendingView.customizeProductState(false);
@@ -305,22 +317,24 @@ public class VendingMachineController {
                     VendingView.processDispensePane(VendingModel.dispenseCustomizedProduct());
                     VendingView.updateSpecialItemListTable(VendingModel.getItemList());
                     
-                    ArrayList <Integer> chosen = new ArrayList <Integer>(VendingModel.getChosenItems());
-                
-                    
 
+                    VendingView.dispenseCustomizedPane(change, true);
+
+                    VendingModel.getChosenItems().clear();
                     VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
                      // give out the change, update change list
 
                     
         
                   }else{
+
+                   
                     
                     int value = VendingModel.cancelTransaction(VendingModel.getPaymentList());
-                    String namePurchased = null;
-                   
+                    VendingView.dispenseCustomizedPane(value, false);
                     VendingView.customizeProductState(false);
                     VendingView.VendingMenuStatus(true);
+                     VendingModel.getChosenItems().clear();
                     
                     
 
@@ -328,14 +342,32 @@ public class VendingMachineController {
                   
 
             }else if(VendingModel.totalAmount(VendingModel.getPaymentList()) == VendingModel.computePrice(VendingModel.getChosenItems())){
-                    System.out.println (VendingModel.getTotalPurchases());
-                    VendingModel.dispenseCustomizedProduct();
+
+
+                    int change = VendingModel.totalAmount(VendingModel.produceChange((VendingModel.totalAmount(VendingModel.getPaymentList()) - VendingModel.computePrice(VendingModel.getChosenItems()))));      
+                    int i = 0, j = 0;
                     
-                
-            } else{
-  
+
+                    VendingModel.storePayment(VendingModel.getPaymentList());
+                    
                     VendingView.customizeProductState(false);
                     VendingView.VendingMenuStatus(true);
+                    //VendingView.displaynewItemListState(true);
+                    VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+                    VendingView.processDispensePane(VendingModel.dispenseCustomizedProduct());
+                    VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+                    
+
+                    VendingView.dispenseCustomizedPane(change, true);
+
+                    VendingModel.getChosenItems().clear();
+                    VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
+
+                
+            } else{
+                    
+                    VendingView.setVendingMenuLabel("Not enough cash inserted.");
+
   
           }
 
@@ -351,37 +383,110 @@ public class VendingMachineController {
     this.VendingView.setCustomizeProductBtn(new ActionListener (){
         @Override
         public void actionPerformed (ActionEvent ab){
-            VendingView.updateSpecialItemListTable(VendingModel.getItemList());
-            VendingView.VendingMenuStatus(false);
-            VendingView.chooseSinkerState(true);
-            VendingView.specialVendItemSubmitState (true);
+
+            int i;
+            boolean sinker = false;
+            boolean teabase = false;
+            boolean flavoring = false;
+            boolean milk = false; 
+
+
+            if(VendingModel.getVendingMachine() instanceof SpecialVendingMachine){
+
+                    for(i = 0; i < VendingModel.getItemList().size(); i++){
+
+                            if(VendingModel.getItemList().get(i).get(0).getCategory().equals("Sinker")){
+
+                                sinker = true;
+
+                            }else if(VendingModel.getItemList().get(i).get(0).getCategory().equals("Tea Base")){
+
+                                teabase = true;
+
+
+                            }else if(VendingModel.getItemList().get(i).get(0).getCategory().equals("Flavoring")){
+
+                                flavoring = true;
+
+                            }else if(VendingModel.getItemList().get(i).get(0).getCategory().equals("Milk")){
+
+                                milk = true;
+
+                            }
+
+                    }
+
+
+                    if(sinker == true && teabase == true && flavoring == true && milk == true){
+
+                        VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+                        VendingView.VendingMenuStatus(false);
+                        VendingView.chooseSinkerState(true);
+                        VendingView.specialVendItemSubmitState (true);
+
+                    }else{
+
+                    VendingView.setVendingMenuLabel("One or more category of items do not exist, unable to customize product");
+
+                    }
+            
+            }else{
+
+                VendingView.setVendingMenuLabel("The vending machine is not a special vending machine, unable to customize product");
+
+            }
+            
+            
+        }
+    });
+
+    this.VendingView.setAddSinkerBtn(new ActionListener (){
+        @Override
+        public void actionPerformed (ActionEvent ab){
+
+
+ 
+
+            int index = Integer.parseInt(VendingView.getItemTF()) - 1;
+
+             if (VendingModel.getItemList().get(index).get(0).getCategory().equals("Sinker")){
+                VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+                VendingModel.getChosenItems().add(index);
+                VendingView.addCategoryPane(VendingModel.getItemList().get(index).get(0).getName());
+
+             }
+
+             else{
+                VendingView.errorMessagePane(false);
+            }
+                //VendingView.errorMessagePane(false);
+
+            if(VendingModel.getChosenItems().size() == 3){
+
+                VendingView.addSinkerState(false);
+
+            }
+            
+            if(VendingModel.getChosenItems().size() > 0){
+
+            VendingView.submitSinkerState(true);
+
+            }
+            
             
             
             
         }
     });
 
-
     this.VendingView.setSubmitSinkerBtn(new ActionListener (){
         @Override
         public void actionPerformed (ActionEvent ab){
 
-
-            
-            int index = Integer.parseInt(VendingView.getItemTF()) - 1;
-             if (VendingModel.getItemList().get(index).get(0).getCategory().equals("Sinker")){
                 VendingView.chooseTeaBaseState(true);
                 VendingView.updateSpecialItemListTable(VendingModel.getItemList());
                 VendingView.chooseSinkerState(false);
-             }
-             else{
-                VendingView.errorMessagePane(false);
-            }
-                //VendingView.errorMessagePane(false);
-            
-            
-            
-            
+           
             
         }
     });
@@ -397,11 +502,11 @@ public class VendingMachineController {
             
             if (VendingModel.getItemList().get(index).get(0).getCategory().equals("Tea Base")){
 
-            VendingModel.getChosenItems().add(index);
-
             VendingView.updateSpecialItemListTable(VendingModel.getItemList());
             VendingView.chooseTeaBaseState(false);
             VendingView.chooseFlavoringState(true);
+            VendingModel.getChosenItems().add(index);
+            VendingView.addCategoryPane(VendingModel.getItemList().get(index).get(0).getName());
 
             }
              else{
@@ -422,11 +527,13 @@ public class VendingMachineController {
             
             if (VendingModel.getItemList().get(index).get(0).getCategory().equals("Flavoring")){
 
-            VendingModel.getChosenItems().add(index);
+           // VendingModel.getChosenItems().add(index);
             VendingView.updateSpecialItemListTable(VendingModel.getItemList());
             VendingView.chooseFlavoringState(false);
             VendingView.chooseMilkState(true);
             VendingModel.getChosenItems().add(index);
+            VendingView.addCategoryPane(VendingModel.getItemList().get(index).get(0).getName());
+
             }
              else{
                 VendingView.errorMessagePane(false);
@@ -447,27 +554,22 @@ public class VendingMachineController {
             if (VendingModel.getItemList().get(index).get(0).getCategory().equals("Milk")){
 
             VendingModel.getChosenItems().add(index);
+            VendingView.addCategoryPane(VendingModel.getItemList().get(index).get(0).getName());
             VendingView.updateSpecialItemListTable(VendingModel.getItemList());
             VendingView.chooseMilkState(false);
             VendingView.displaynewItemListState(false);
             VendingView.backButtonsState(false);
             VendingView.customizeProductState(true);
             VendingView.specialVendItemSubmitState (false);
+            VendingView.setCustomizedPrice("Total price is: " + VendingModel.computePrice(VendingModel.getChosenItems()));
+            VendingView.setCustomizedCalories("Total calories is:" + VendingModel.computeCalories(VendingModel.getChosenItems()));
             
             }
              else{
                 VendingView.errorMessagePane(false);
             }
             
-            
-
-      //      processes = VendingModel.dispenseCustomizedProduct(VendingModel.getChosenItems());
-
-       //     for(i = 0; i < VendingModel.getChosenItems().size(); i++){
-
-        //    System.out.println(processes[i]);
-
-          //  }
+        
             
         }
     });
@@ -507,6 +609,7 @@ public class VendingMachineController {
 
             VendingView.MaintMenuStatus(true);
             VendingView.displaynewItemListState(false);            
+            VendingView.replenishItemState(false);   
 
         }
     });
@@ -539,11 +642,23 @@ public class VendingMachineController {
         @Override
         public void actionPerformed (ActionEvent a){
 
+            
             VendingView.MaintMenuStatus(false);
             VendingView.displaynewItemListState(true);
+
+            if(VendingModel.getVendingMachine() instanceof SpecialVendingMachine){
+
             VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+
+            }else{
+            
+            VendingView.updateRegularItemListTable(VendingModel.getItemList());
+
+            }
+
             VendingView.replenishItemState(true);
             VendingView.updateItemsComboBox(VendingModel.getItemNames(VendingModel.getItemList()));
+            
 
             // replenish item
 
@@ -772,9 +887,17 @@ public class VendingMachineController {
         @Override
         public void actionPerformed (ActionEvent i){
 
+            if(VendingModel.totalAmount(VendingModel.getPaymentList()) > 0){
+            
             VendingView.selectItemState(true);
             VendingView.VendingMenuStatus(false);
             VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
+
+            }else{
+
+            VendingView.setVendingMenuLabel("You have not inserted any cash");
+
+            }
 
         }
 
@@ -788,7 +911,18 @@ public class VendingMachineController {
             
             int purchasedItem = Integer.parseInt(VendingView.getItemTF());
 
-            if(VendingModel.totalAmount(VendingModel.getPaymentList()) > VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice()){  // if amount inserted is greater than price of item selected
+            if(VendingModel.getVendingMachine() instanceof SpecialVendingMachine){
+
+                if(VendingModel.getItemList().get(purchasedItem-1).get(0).getCategory().equals("Sinker")){
+
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+                    VendingView.setVendingMenuLabel("Cannot dispense sinker.");
+
+
+                }else{
+
+                    if(VendingModel.totalAmount(VendingModel.getPaymentList()) > VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice()){  // if amount inserted is greater than price of item selected
                 
 
                 if (VendingModel.verifyChange(VendingModel.totalAmount(VendingModel.getPaymentList()))){ // verify if there is change
@@ -797,16 +931,18 @@ public class VendingMachineController {
                     
                     int change = VendingModel.totalAmount(VendingModel.produceChange((VendingModel.totalAmount(VendingModel.getPaymentList()) - VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice())));      
                     
-                    VendingModel.storePayment(VendingModel.getPaymentList());
+                   // VendingModel.storePayment(VendingModel.getPaymentList());
                     
                     String namePurchased = VendingModel.getItemList().get(purchasedItem-1).get(0).getName();
                     VendingView.dispensePane(change, true, namePurchased); 
-                    VendingModel.dispenseItem(purchasedItem);
+                    VendingModel.dispenseItem(purchasedItem - 1);
                     VendingView.selectItemState(false);
                     VendingView.VendingMenuStatus(true);
                     VendingView.displaynewItemListState(true);
-                    VendingView.updateRegularItemListTable(VendingModel.getItemList());
+                    VendingView.backButtonsState(false);
+                    VendingView.updateSpecialItemListTable(VendingModel.getItemList());
                     VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
+
                      // give out the change, update change list
                     
                     
@@ -830,6 +966,72 @@ public class VendingMachineController {
                     String namePurchased = VendingModel.getItemList().get(purchasedItem-1).get(0).getName();
                     VendingView.dispensePane(change, true, namePurchased); 
                     VendingModel.dispenseItem(purchasedItem - 1);
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+                    VendingView.backButtonsState(false);
+                    VendingView.updateSpecialItemListTable(VendingModel.getItemList());
+
+                
+            } else{
+  
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+  
+            }
+
+                }
+
+
+            }else{
+
+            if(VendingModel.totalAmount(VendingModel.getPaymentList()) > VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice()){  // if amount inserted is greater than price of item selected
+                
+
+                if (VendingModel.verifyChange(VendingModel.totalAmount(VendingModel.getPaymentList()))){ // verify if there is change
+                    
+                    
+                    
+                    int change = VendingModel.totalAmount(VendingModel.produceChange((VendingModel.totalAmount(VendingModel.getPaymentList()) - VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice())));      
+                    
+                  //  VendingModel.storePayment(VendingModel.getPaymentList());
+                    
+                    String namePurchased = VendingModel.getItemList().get(purchasedItem-1).get(0).getName();
+                    VendingView.dispensePane(change, true, namePurchased); 
+                    VendingModel.dispenseItem(purchasedItem - 1);
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+                    VendingView.displaynewItemListState(true);
+                    VendingView.updateRegularItemListTable(VendingModel.getItemList());
+                    VendingView.backButtonsState(false);
+                    VendingView.setMoneyLabel("Inserted Cash:" + VendingModel.totalAmount(VendingModel.getPaymentList()));
+
+                     // give out the change, update change list
+                    
+                    
+        
+                  }else{
+                    
+                    int value = VendingModel.cancelTransaction(VendingModel.getPaymentList());
+                    String namePurchased = null;
+                    VendingView.dispensePane(value, false, namePurchased);
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+                    VendingView.backButtonsState(false);
+                    
+
+                  }
+                  
+
+            }else if(VendingModel.totalAmount(VendingModel.getPaymentList()) == VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice()){
+
+                    int change = VendingModel.totalAmount(VendingModel.produceChange((VendingModel.totalAmount(VendingModel.getPaymentList()) - VendingModel.getItemList().get(purchasedItem-1).get(0).getPrice())));
+                    String namePurchased = VendingModel.getItemList().get(purchasedItem-1).get(0).getName();
+                    VendingView.dispensePane(change, true, namePurchased); 
+                    VendingModel.dispenseItem(purchasedItem - 1);
+                    VendingView.selectItemState(false);
+                    VendingView.VendingMenuStatus(true);
+                    VendingView.updateRegularItemListTable(VendingModel.getItemList());
+                    VendingView.backButtonsState(false);
 
                 
             } else{
@@ -839,7 +1041,7 @@ public class VendingMachineController {
   
           }
 
-
+        }
         }
         });
 
